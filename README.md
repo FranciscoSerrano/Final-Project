@@ -39,7 +39,7 @@ pip -r requirements.txt
 
 ## Todo Checklist
 
-A helpful checklist to gauge how your README is coming on what I would like to finish:
+A helpful checklist for the things that need to be accomlished:
 
 - [x] Project Overview
 - [x] The Week of December 9th deliverables
