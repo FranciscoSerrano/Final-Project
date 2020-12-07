@@ -38,6 +38,7 @@ pip -r requirements.txt
 
 ## Todo Checklist
 **For a more detailed view of project tasks visit the Projects tab**
+
 A helpful checklist for the things that need to be accomlished:
 
 - [x] Project Overview
