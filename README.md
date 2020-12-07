@@ -9,8 +9,7 @@ The final project of University of Central Florida's Data Science Bootcamp
 Francisco | Annie | Jovani | Max
 
 
-
-## Project Overview
+---
 
 ![Project Overvierw](assets/ML_Project_Overview.png)
 This project will aim to create a model that can tell whether or not you have a face mask on. Inspired by the pandemic of 2020.
