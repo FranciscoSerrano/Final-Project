@@ -23,10 +23,11 @@ html, body {
 }
 
 #content-middle{
-    /* height: 200%; */
+    height: 200%;
     background-color: #EAEAEA;
     background-image: url(../static/assets/wavedark.svg);
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 800px);
     justify-content: center;
 }
 
