@@ -24,6 +24,9 @@ html, body {
 
 #content-middle{
     background-color: #EAEAEA;
+    background-image: url(../static/assets/wavedark.svg);
+    display: flex;
+    justify-content: center;
 }
 
 nav {
@@ -79,4 +82,24 @@ nav img {
     text-align: center;
     border-radius: 50px;
     box-shadow: 0px 0px 35px 1px rgba(0, 0, 0, 0.5) ;
+}
+
+.card {
+    width: 400px;
+    box-sizing: border-box;
+    padding: 25px;
+    margin: 25px;
+    height: 500px;
+    border-radius: 25px;
+    background-color: whitesmoke;
+    box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.2) ;
+}
+
+/* .card:nth-child(1) {
+    background-color: white;
+} */
+
+footer {
+    height: 400px;
+    background-color: #3E3E3E;
 }
