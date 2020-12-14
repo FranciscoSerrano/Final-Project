@@ -7,7 +7,8 @@
 We want to provide the most convincing web app and data experience to show the effectiveness of masks during the COVID-19 global pandemic.
 ### Mission
 To help prevent the spread of COVID-19 and convince more people to wear masks.
-## General
+### General Overview
+![Project Overview](resources/ML_Project_Overview.png)
 This project will aim to create a model that can tell whether or not you have a face mask on. Inspired by the pandemic of 2020.
 As shown above the project breakdown was simple. Use a cascade classifier to detect a face in a webcam window, extract the face and pass it to a convolutional neural network to classify the image as "no mask" or "mask".
 
@@ -16,7 +17,9 @@ The goal will be to add this model to the web and build a webapp that a user can
 Possible additional features may include the ability for the model to aid in giving the user an expected timeline for a vaccine to be available to them based on [this](https://www.nytimes.com/interactive/2020/12/03/opinion/covid-19-vaccine-timeline.html) vaccine tool from the New York Times.
 ### Questions
 What will this model accomplish overall?
+
 How will it be used to assist in reducing the spread of COVID-19?
+
 Are there specific locations where this model may be more helpful than others?
 ## Meet the Team
 
@@ -24,6 +27,13 @@ Are there specific locations where this model may be more helpful than others?
 -- | -- | -- | --
 Francisco | Annie | Jovani | Max
 
+## Communication
+
+We communicate through:
+- Slack
+- Zoom meetings
+- Google Drive
+- Detailed Git commits
 ## Project Structure
 ```
 .
@@ -48,9 +58,14 @@ Francisco | Annie | Jovani | Max
 
 ## Todo Checklist
 
-**For a more detailed view of project tasks visit the Projects tab**
+A helpful checklist for the things that need to be accomlished:
 
-A helpful checklist for the things that need to be accomplished:
-
-- [ ] Project Overview
-- [ ] Complete project README.md
+- [x] Project Overview
+- [x] The Week of December 9th deliverables
+    - [x] Set up a group repository
+    - [x] Create a project timeline
+    - [x] Establish a comminucation protocol
+    - [x] Decide which technoligies will be used
+- [x] Add ML-Model and venv
+- [x] Begin work on front end
+- [x] Create a branch for each team members features
