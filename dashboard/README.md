@@ -16,7 +16,9 @@ Much of our data will be retrieved using <a href="https://covidtracking.com/data
     * Could feasibly be "filterable" based on date/month
 
 * Line Chart - positive tests/cumulative cases over time
-    * Potential to filter for a state? Region (based on US Census)
+    * Potential to filter for a state? Region (based on US Census)?
+
+* Something for critical/severe cases vs "regular" cases
 
 * Chord diagram w/ hierarchical edge bundling - US Death Rate
     * States around the edge bundling into the middle with chord size relative to contribution to overall rate
