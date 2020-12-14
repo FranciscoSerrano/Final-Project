@@ -23,11 +23,13 @@ html, body {
 }
 
 #content-middle{
-    height: 200%;
+    height: auto;
     background-color: #EAEAEA;
     background-image: url(../static/assets/wavedark.svg);
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 36rem;
 }
 
 nav {
@@ -96,9 +98,10 @@ nav img {
     box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.2) ;
 }
 
-/* .card:nth-child(1) {
-    background-color: white;
-} */
+.long {
+    width: 1250px;
+
+}
 
 footer {
     height: 400px;
