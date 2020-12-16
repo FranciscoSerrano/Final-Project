@@ -47,16 +47,4 @@ def create_app(extra_config_settings={}):
     # Setup Flask-Migrate
     migrate.init_app(app, db)
 
-    # Register blueprints
-    from app.views.landing import main_blueprint
-    from app.views.apis import api_blueprint
-
-    app.register_blueprint(main_blueprint)
-    app.register_blueprint(api_blueprint)
-
-    # Register blueprints
-    from app.views.landing import main_blueprint
-
-    app.register_blueprint(main_blueprint)
-
     return app

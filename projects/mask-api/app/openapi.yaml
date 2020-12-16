@@ -1,0 +1,34 @@
+openapi: 3.0.0
+info:
+  description: Masky API takes an image or video stream and runs our ML mask model prediction function to return a result.
+  version: "0.1.0"
+  title: Masky API
+paths:
+  /people:
+    get:
+      operationId: people.read_all
+      tags:
+        - People
+      summary: Read the entire set of people, sorted by last name
+      description: Read the entire set of people, sorted by last name
+      responses:
+        200:
+          description: Successfully read people set operation
+          content:
+            'text/plain':
+              schema:
+                type: array
+                items:
+                  properties:
+                    person_id:
+                      type: string
+                      description: Id of the person
+                    fname:
+                      type: string
+                      description: First name of the person
+                    lname:
+                      type: string
+                      description: Last name of the person
+                    timestamp:
+                      type: string
+                      description: Creation/Update timestamp of the person
