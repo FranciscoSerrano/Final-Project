@@ -82,21 +82,12 @@ function usCharts() {
             let cum = data[i].hospitalizedCumulative;
             cumHospital.push(cum);
 
-            // POTENTIALLY: Add info for hospital delta
-            // POTENTIALLY: Add info for ventilator and ICU curr vs. cum. and deltas
         };
 
-        // Stacked Positive and Negative Results Bar Chart
+        // Positive Tests Time Series
         // Create yticks objects
 
-        // Create Trace
-        var negTrace = {
-            x: date,
-            y: negative,
-            name: 'Negative Tests',
-            type: 'scatter'
-        };
-        
+        // Create Trace        
         var posTrace = {
             x: date,
             y: positiveDelta,
@@ -107,8 +98,7 @@ function usCharts() {
         var resultsTrace = [posTrace];
         
         // Create layout
-        //var layout = { barmode: 'stack'};
-
+        
         // Use plotly to plot with the applicable data, layout, etc. 
         Plotly.newPlot('line', resultsTrace);    
 })}; 
@@ -167,6 +157,10 @@ function stateCharts(state) {
             // Create cumulative hospital total
             let cum = data[i].hospitalizedCumulative;
             stateCumHospital.push(cum);
+
+            // POTENTIALLY: Add info for hospital delta
+            // POTENTIALLY: Add info for ventilator and ICU curr vs. cum. and deltas
+
         };
     // Create yticks objects
 
