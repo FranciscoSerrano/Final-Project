@@ -8,7 +8,6 @@ Its not just Flask but an ecosystem to properly create a RESTful API service:
 
 - [Connexion](https://connexion.readthedocs.io/en/latest/index.html) is a framework on top of Flask that automagically handles HTTP requests defined using OpenAPI (formerly known as Swagger), supporting both v2.0 and v3.0 of the specification.
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/) is a lightweight WSGI web application framework in Python. It is designed to make getting started very quickly and very easily.
-- [Blueprints](https://flask.palletsprojects.com/en/1.0.x/blueprints/) for scalability.
 - [marshmallow](https://marshmallow.readthedocs.io/en/stable/) is an ORM/ODM/framework-agnostic library for converting complex datatypes, such as objects, to and from native Python datatypes.
 - [Flask-Marshmallow](https://flask-marshmallow.readthedocs.io/en/latest/) is a thin integration layer for Flask and marshmallow that adds additional features to marshmallow.
 - [SQLAlchemy](https://www.sqlalchemy.org/library.html) is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.
@@ -22,11 +21,10 @@ Its not just Flask but an ecosystem to properly create a RESTful API service:
 - Tested on Python 2.6, 2.7, 3.3, 3.4, 3.5 and 3.6
 - Well organized directories with lots of comments
   - app
+    - api
+    - celery
     - commands
     - models
-    - static
-    - templates
-    - views
   - tests
 - Includes test framework (`py.test`)
 - Includes database migration framework (`alembic`)
