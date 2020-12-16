@@ -86,10 +86,9 @@ function usCharts() {
             // POTENTIALLY: Add info for ventilator and ICU curr vs. cum. and deltas
         };
 
-        // Create yticks objects
-        
-
         // Stacked Positive and Negative Results Bar Chart
+        // Create yticks objects
+
         // Create Trace
         var negTrace = {
             x: date,
@@ -119,8 +118,56 @@ function stateCharts(state) {
 
     // Use d3 to retrieve API data
     s3.json("https://api.covidtracking.com/v1/states/daily.json").then((data) => {
-    // Create variables to hold data of interest for the chart X values
+    
+        // Create arrays to hold data of interest for the chart X values
+        var stateDate = [];
+        var statePositive = [];
+        var statePositiveDelta = [];
+        var stateNegative = [];
+        var stateNegativeDelta = [];
+        var stateTotalResults = [];
+        var stateCurrHospital = [];
+        var stateCumHospital = [];
+        
+        // Loop through the data set to fill arrays
+        for (let i in data) {
 
+            // Create date object array
+            let str = data[i].date.toString();
+            let month = str.slice(4,6);
+            let day = str.slice(6,);
+            let year = str.slice(0,4);
+            let fDate = new Date(year, (month-1), day).toLocaleDateString()
+            stateDate.push(fDate);
+
+            // Create cumulative positive results array
+            let totPos = data[i].positiveTestsViral;
+            statePositive.push(totPos);
+
+            // Create positive delta array
+            let pos = data[i].positiveIncrease;
+            statePositiveDelta.push(pos);
+            
+            // Create cumulatve negative results array
+            let totNeg = data[i].negativeTestsViral;
+            stateNegative.push(totNeg);
+
+            //Create negative delta array
+            let neg = data[i].negativeIncrease;
+            stateNegativeDelta.push(neg);
+
+            // Create cumulative  total results array
+            let tot = data[i].totalTestResultsIncrease;
+            stateTotalResults.push(tot);
+
+            // Create current hospital total
+            let curr = data[i].hospitalizedCurrently;
+            stateCurrHospital.push(curr);
+
+            // Create cumulative hospital total
+            let cum = data[i].hospitalizedCumulative;
+            stateCumHospital.push(cum);
+        };
     // Create yticks objects
 
     // Create traces 
@@ -130,3 +177,5 @@ function stateCharts(state) {
     // Use plotly to plot with the applicable data, layout, etc. 
 
 })};
+
+// We need to be sure to add a "Last Updated" note at the bottom of the page, which can be filled via a ref to the API's "dateChecked" field
