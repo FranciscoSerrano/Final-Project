@@ -14,6 +14,7 @@ Much of our data will be retrieved using <a href="https://covidtracking.com/data
     * Seen this done with tableau, lets explore other options
     * Limited interactivity - some sort of tooltip/infobox 
     * Could feasibly be "filterable" based on date/month
+    * Leaflet.js?
 
 * Line Chart - positive tests/cumulative cases over time
     * Potential to filter for a state? Region (based on US Census)?
