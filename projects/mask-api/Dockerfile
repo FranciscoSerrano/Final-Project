@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.8
 
 ENV FLASK_APP manage.py
 
@@ -9,4 +9,4 @@ COPY migrations migrations
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
-CMD ["gunicorn", "--config", "gunicorn.py", "???:app"]
+CMD ["gunicorn", "--config", "unicorn.py", "???:app"]
