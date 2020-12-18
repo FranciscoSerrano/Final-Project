@@ -27,9 +27,10 @@ html, body {
     background-color: #EAEAEA;
     background-image: url(../static/assets/wavedark.svg);
     display: flex;
-    justify-content: center;
+    grid-template-columns: 1fr;
     flex-wrap: wrap;
     padding-bottom: 36rem;
+    width: 100%;
 }
 
 nav {
@@ -88,10 +89,10 @@ nav img {
 }
 
 .card {
-    width: 600px;
+    width: 40%;
     box-sizing: border-box;
     padding: 25px;
-    margin: 25px;
+    margin: 30px auto;
     height: 500px;
     border-radius: 25px;
     background-color: whitesmoke;
@@ -99,11 +100,15 @@ nav img {
 }
 
 .long {
-    width: 1250px;
+    width: 90%;
 
 }
 
 footer {
     height: 400px;
     background-color: #3E3E3E;
+}
+
+@media only screen and (max-width: 600px) {
+
 }
