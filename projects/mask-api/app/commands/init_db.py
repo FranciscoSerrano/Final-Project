@@ -6,7 +6,7 @@ from flask import current_app
 from flask_script import Command
 
 from app import db
-from app.models.maksy_models import Person
+from app.models.image_dbmodel import Image
 
 
 class InitDbCommand(Command):
@@ -20,26 +20,14 @@ def init_db():
     """ Initialize the database."""
     db.drop_all()
     db.create_all()
-    create_users()
+    create_images()
 
 
-def create_users():
-    """ Create users """
+def create_images():
+    """ Create images """
 
     # Create all tables
     db.create_all()
-
-    # Create People tables
-    PEOPLE = [
-        {"fname": "Doug", "lname": "Farrell"},
-        {"fname": "Kent", "lname": "Brockman"},
-        {"fname": "Bunny", "lname": "Easter"},
-    ]
-
-    # iterate over the PEOPLE structure and populate the database
-    for person in PEOPLE:
-        p = Person(lname=person.get("lname"), fname=person.get("fname"))
-        db.session.add(p)
 
     # Save to DB
     db.session.commit()
