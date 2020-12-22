@@ -39,3 +39,10 @@ Much of our data will be retrieved using <a href="https://covidtracking.com/data
     * Laser refraction analysis of droplets shows that bandanas reduce droplet emission by almost 50% while homemade cloth masks can reduce droplet count by up to 80%. Surgical masks reduce droplet emission by up to 96%. - (Fischer, Emma P., et al. “Low-Cost Measurement of Face Mask Efficacy for Filtering Expelled Droplets during Speech.” Science Advances, vol. 6, no. 36, 2020, doi:10.1126/sciadv.abd3083.) NOTE: This is based on droplet counts
     * Based on METHODS, adoption of a universal face mask, even a homemade one that only offers 5% protection/containment would reduce total deaths by 3-5%. If that is coupled with targetted distribution of surgical masks for the elderly and symptomatic, the effect at least doubles. (Worby, C.J., Chang, HH. Face mask use in the general population and optimal resource allocation during the COVID-19 pandemic. Nat Commun 11, 4049 (2020). https://doi.org/10.1038/s41467-020-17922-x)
     * The above statistics are the basis for the mask infographic, but will need to be couched in very specific language to avoid misrepresentation
+
+* Color Scales
+    * Built in: "Picnic"
+    * Custom:
+        * Start: #fb0279 (251, 2, 121)
+        * Middle: #a5358d  (165, 53, 141)
+        * End: #5d5e9e (93, 94, 158)
