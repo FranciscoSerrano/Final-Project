@@ -101,7 +101,43 @@ function usCharts() {
         
         // Use plotly to plot with the applicable data, layout, etc. 
         Plotly.newPlot('line', resultsTrace);    
-})}; 
+
+        // US Map - Scatter of Hospital vs. ICU vs. Ventilator
+        var data = [{
+            type: 'scattergeo',
+            locationmode: 'USA-states',
+            // lon: Get via some source, 
+            // lat: Get via some source,
+            // hoverinfor: hospital rates or whatever we decide to show, 
+            text: stateNames,
+            mode: 'markers',
+            marker: {
+                symbol: 'circle',
+                //size: figure out how to use sizeref, 
+                opacity: 0.8,
+                //color: color or array of colors (cmin/mid/max or colorscale?) base on sizeref;
+                showscale: true,
+            },
+            textfont: {
+                //size: define size,
+                //color: if it needs to change based on the color scale
+            },
+        }],
+        var layout = [{
+            title: "US Hospitalization Rates by State",
+            colorbar: true,
+            geo: {
+                scope: 'usa',
+                projection: { type: 'albers usa'},
+            },
+            showland: true,
+            // landcolor: set default color probably grey or white but based on colorscale,
+            //paper_bgcolor: '#EAEAEA',
+            //plot_bgcolor: '#EAEAEA',
+            // hovermode: unsure if necessary
+        }];
+        Plotly.newPlot('CHARTDIV2', data, layout);
+})};    
 
 // Build stateCharts Function
 function stateCharts(state) {
