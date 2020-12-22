@@ -11,10 +11,9 @@ Much of our data will be retrieved using <a href="https://covidtracking.com/data
 
 ### Viz Planning and Ideas
 * US map bubble chart for current hospitalizations
-    * Seen this done with tableau, lets explore other options
-    * Limited interactivity - some sort of tooltip/infobox 
-    * Could feasibly be "filterable" based on date/month
-    * Leaflet.js?
+    * selector for hospital (curr/cumu.), ICU (curr/cumu.), Ventilator (curr/cumu.)?
+    * Scattergeo with Plotly
+    * Need to figure out how this will display vs. the state data in the initial selector
 
 * Line Chart - positive tests/cumulative cases over time
     * Potential to filter for a state? Region (based on US Census)?

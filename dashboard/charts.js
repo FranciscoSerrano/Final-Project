@@ -2,40 +2,28 @@
 function init() {
 
     //Build locations array
-    d3.json("locations.json").then((locations) => {
-        var stateNames = [];
-        var stateLat = [];
-        var stateLong = [];
+    d3.json("locations.json").then((locations) => { 
 
-        for (let i in locations) {
-            let name = locations[i].name;
-            let lat = locations[i].lat;
-            let long = locations[i].long;
+        // Grab a reference to the dropdown select element
+        // * Make sure the selector will work inside this function
+        //var selector = d3.select("#selDataset");
+    
+        // Instantiate list of options for the selector
+        // * Change this to full names instead of abbreviations
+        // * Might need to move into the previous code block 
+        // * Finalize how we're going to toggle between National and State data
+        //var stateNames = ["Entire U.S", "AL","AK","AZ","AR","CA","CO","CT","DE","DC",
+            //"FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT",
+            //"NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT",
+            //"VT","VA","WA","WV","WI","WY"
+        //];
 
-            stateNames.push(name);
-            stateLat.push(lat);
-            stateLong.push(long);
-        };
+        //Run usCharts and pass in the locations object
+        usCharts(locations);
+        // Use the first option from the lists to build the initial plots
+        //var initCharts = stateNames[0];
+        //buildCharts(initCharts);
     });
-
-    //Run usCharts and pass in the locations object
-    usCharts(locations);
-
-    // Grab a reference to the dropdown select element
-    //var selector = d3.select("#selDataset");
-  
-    // Instantiate list of options for the selector
-    // * Change this to full names instead of abbreviations
-    // * Can just use stateNames from above, but have to figure out how to add entire us  
-    //var stateNames = ["Entire U.S", "AL","AK","AZ","AR","CA","CO","CT","DE","DC",
-        //"FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT",
-        //"NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT",
-        //"VT","VA","WA","WV","WI","WY"
-    //];
-
-    // Use the first option from the lists to build the initial plots
-    //var initCharts = stateNames[0];
-    //buildCharts(initCharts);
 };
 
 // Initialize Dashboard
@@ -51,10 +39,27 @@ init();
 
 // Build Charts Function
 function usCharts(locations) {
-    
+    // Declare arrays from locations data
+    var stateNames = [];
+    var stateLat = [];
+    var stateLong = [];    
+
+    // Loop through locations to fill arrays
+    for (i in locations) {
+        // Access and save properties
+        let names = locations[i].name;
+        let lat = locations[i].latitude;
+        let long = locations[i].longitude
+
+        // Push properties to their arrays
+        stateNames.push(names);
+        stateLat.push(lat);
+        stateLong.push(long);
+    };
+    console.log(locations);
     // Use d3 to retrieve API data
     d3.json("https://api.covidtracking.com/v1/us/daily.json").then((data) => {
-    
+        
         // Create arrays to hold data of interest for the chart X values
         var date = [];
         var positive = [];
@@ -105,38 +110,30 @@ function usCharts(locations) {
             cumHospital.push(cum);
         };
 
-        // Positive Tests Time Series
-        // Create yticks objects
-
-        // Create Trace        
-        var posTrace = {
-            x: date,
-            y: positiveDelta,
-            name: 'Positive Tests',
-            type: 'scatter'
-        };
-        
-        var resultsTrace = [posTrace];
-        
-        // Create layout
-        
-        // Use plotly to plot with the applicable data, layout, etc. 
-        Plotly.newPlot('line', resultsTrace); 
-
         // US Map - Scatter of Hospital vs. ICU vs. Ventilator
+        
+        // Define hoverText
+        var hoverText = [];
+
+        for (i in stateNames, currHospital) {
+            var currentText = stateNames[i] + "\nCurrent Hospitalizations: " + currHospital[i];
+            hoverText.push(currentText); 
+        };
+        console.log(stateLong)
+        // Define data trace
         var data = [{
             type: 'scattergeo',
             locationmode: 'USA-states',
             lon: stateLong,
             lat: stateLat,
-            // hoverinfor: hospital rates or whatever we decide to show, 
-            text: stateNames,
+            hoverinfo: 'text',
+            text: hoverText,
             mode: 'markers',
             marker: {
                 symbol: 'circle',
-                //size: figure out how to use sizeref, 
+                size: currHospital, 
                 opacity: 0.8,
-                //color: color or array of colors (cmin/mid/max or colorscale?) base on sizeref;
+                colorscale: 'picnic',
                 showscale: true,
             }
             //textfont: {
@@ -144,9 +141,8 @@ function usCharts(locations) {
                 //color: if it needs to change based on the color scale
             //}
         }];
-        console.log(stateLong);
-
-        var layout = [{
+        
+        var layout = {
             title: "US Hospitalization Rates by State",
             colorbar: true,
             geo: {
@@ -158,8 +154,11 @@ function usCharts(locations) {
             // paper_bgcolor: '#EAEAEA',
             // plot_bgcolor: '#EAEAEA',
             // hovermode: unsure if necessary
-        }];
-        Plotly.newPlot('CHARTDIV2', data, layout);
-})};    
+        };
+
+        var config = {responsive: true};
+        Plotly.newPlot('CHARTDIV2', data, layout, config);
+});
+};    
 
 // We need to be sure to add a "Last Updated" note at the bottom of the page, which can be filled via a ref to the API's "dateChecked" field
