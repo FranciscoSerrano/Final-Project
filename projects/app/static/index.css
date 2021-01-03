@@ -166,6 +166,7 @@ nav img {
 
 .long {
   width: 90%;
+  height: fit-content;
 }
 
 /* VIZ IMAGES */
