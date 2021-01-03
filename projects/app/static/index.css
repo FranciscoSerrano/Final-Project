@@ -188,6 +188,7 @@ nav img {
 
 .section-footer__layout {
   column-gap: var(1rem);
+  text-decoration: none;
 }
 
 .section-footer--copyright {
@@ -197,8 +198,14 @@ nav img {
 
 .section-footer__layout {
   column-gap: var(1rem);
+  
 }
 
 text-note {
   line-height: 1;
+}
+
+a {
+    text-decoration: none; 
+    color: whitesmoke; 
 }
