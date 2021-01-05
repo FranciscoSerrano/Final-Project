@@ -113,9 +113,16 @@ nav img {
   background-repeat: no-repeat;
   background-position-y: bottom;
 }
-.top-about {
+.top-features {
   margin-bottom: auto;
 }
+
+.top-features img{
+    width: 100%;
+    align-content: center;
+  }
+
+
 .content-top-body {
   display: flex;
   width: 70%;
@@ -167,6 +174,15 @@ nav img {
   
 }
 
+.content-middle-body li {
+    font-size: 20px;
+    
+  }
+
+.content-middle-body code {
+font-size: 20px;
+
+}
 
 
 

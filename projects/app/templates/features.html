@@ -98,13 +98,13 @@
     <meta name="twitter:description" content="" />
     <meta name="twitter:image" content="" />
 
-    <link rel="stylesheet" href="../static/about.css" />
+    <link rel="stylesheet" href="../static/features.css" />
   </head>
   <body>
     <div id="content-top">
       <nav>
         <ul>
-          <li><a href="/features" target="_top">Features</a></li>
+            <li><a href="/features" target="_top">Features</a></li>
           <li><a href="/#content-middle">Dashboard</a></li>
           <li><a href="/about" target="_top">About Us</a></li>
         </ul>
@@ -119,61 +119,59 @@
         </section>
       </nav>
       <section class="content-top-body">
-        <section class="top-about">
-          <h1>About Us</h1>
-          <p>
-            We're a team of four students at the University of Central Florida. This webapp we created 
-            is part of our final project in the Data Analysis and Visualization course. The goal of this project was 
-            to use all of the skills we've learned over the past six months in: exploratory data analysis, python, 
-            html, css, javscript, databases, and machine learning to make a useful tool.
-          </p>
+        <section class="top-features">
+          <h1>Features</h1>
+          <img src="../static/assets/ML_Project_Overview.png"/>
           <br>
           <p>
-            This tools purpose is to give a user some useful statics based on public COVID-19 data sets 
-            to help them better understand risk and the importance of wearing a mask. We also included a 
-            fun widget that takes a photo from the user and analyses the face to see if the user is wearing a mask or not. 
-            Based on the outcome some useful facts are displayed on the screen.
+            OpenCV provides the CascadeClassifier class that can be used to create a cascade 
+            classifier for face detection. The constructor can take a filename as an argument 
+            that specifies the XML file for a pre-trained model.
+            <br>
+            OpenCV provides a number of pre-trained models as part of the installation. These are available on your system and are also available on the OpenCV GitHub project.
+            <br>
+          </p>
+          <img src="../static/assets/CNN_architecture.png"/>
+          <br>
+          <p>
+            Use a cascade classifer to detect a face in a webcam window, extract the face and pass it to a convolutional neural network to classify the image as "mask" or "no mask".
           </p>
         </section>
     </div>
     <section id="content-middle">
       <section class="content-middle-body">
         <section class="middle-about">
-          <h1>Overview</h1>
+          <h1>Environment</h1>
           <p>
-          Inspired by the COVID-19 pandemic, Masky is a model created to determine 
-          whether or not a person is wearing a face mask. We have paired Masky 
-          with a COVID-19 informational dashboard to show users the positive 
-          outcomes of wearing a mask.
-          </p>  
+            Included in our repository is our "requirements.txt" With this file in the repository, you can create the new environment by running:
+          </p>
+          <br> 
+          <code>
+            python -m venv myenv
+          </code> 
+          <br> 
+          <code>
+            pip -r requirements.txt
+          </code>
           <br><br>
-          <h1>Team</h1>
-          <h2>Annie</h2>
-          <p>
-          Annie is an HR Professional, currently working in the hospital system. She 
-          assisted with project management and confirming all work was clean and 
-          edited before being submitted. When she is not working, Annie enjoys a good
-          Netflix binge and cuddle with her dog, Koda.
-          </p>
+          <h1>Methods</h1>
+          <ul style="list-style-type:none">
+              <li>Inferential Statistics</li>
+              <li>Machine Learning</li>
+              <li>Data Visualization</li>
+              <li>Predictive Modeling</li>
+              <li>etc</li>
+          </ul>
           <br>
-          <h2>Francisco</h2>
-          <p>
-          Francisco worked on the machine learning model, vizualisations, and front-end 
-          web development. He is currently a software/data engineer with Apple. In his 
-          free time, Francisco likes to watch anime, eat Oreos, and read.
-          </p>
-          <br>
-          <h2>Jovani</h2>
-          <p>
-          I turn Oreos and beer into code.
-          </p>
-          <br>
-          <h2>Max</h2>
-          <p>
-          [insert interesting information here]
-          </p>         
-          <br><br><br><br><br>
-          <p>Be super and put on the mask. &#x2764;&#xfe0f;</p>
+          <h1>Technologies</h1>
+          <ul style="list-style-type:none">
+              <li>Python 3</li>
+              <li>OpenCV</li>
+              <li>Tensorflow/Keras</li>
+              <li>Pandas</li>
+              <li>numpy</li>
+              <li>matplotlib</li>
+          </ul>
         </section>
       </section>
     </section>
