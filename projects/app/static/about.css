@@ -107,15 +107,15 @@ nav img {
 #content-top,
 #content-middle {
   box-sizing: border-box;
-  height: 100%;
   background-color: #3e3e3e;
   padding-top: 50px;
-  background-image: url(../static/assets/wavelight.svg);
+  /* background-image: url(../static/assets/wavelight.svg); */
   background-repeat: no-repeat;
   background-position-y: bottom;
 }
 .top-about {
   margin-bottom: auto;
+  text-shadow: 2px 2px #3e3e3e;
 }
 .content-top-body {
   display: flex;
@@ -133,6 +133,7 @@ nav img {
 
 .content-top-body p {
   font-size: 20px;
+  margin-bottom: 70px;
   
 }
 
