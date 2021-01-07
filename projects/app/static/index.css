@@ -169,6 +169,81 @@ nav img {
   height: fit-content;
 }
 
+.content-middle-body {
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
+  justify-content: ;
+  color: #3e3e3e;
+}
+
+.content-middle-body h1 {
+  font-size: 50px;
+  color: #3e3e3e;
+  
+}
+
+.content-middle-body p {
+  font-size: 20px;
+  
+}
+
+.content-middle-body li {
+    font-size: 20px;
+    
+  }
+
+.content-middle-body code {
+font-size: 20px;
+}
+
+.middle-about a{
+  color: rgb(39, 121, 189);
+
+}
+.bigsplash {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: #F5F5F5;
+}
+
+.half > div {
+  flex-basis: 50%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 45%;
+  height: 12px;
+  border-radius: 15px;  
+  background: rgb(22, 133, 109);
+  outline: none;
+  opacity: 1;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  border-color: rgb(40, 32, 68);
+  background: rgb(245, 255, 255);
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border-color: rgb(40, 32, 68);
+  background: rgb(245, 255, 255);
+  cursor: pointer;
+}
+
 /* VIZ IMAGES */
 .viz {
   display: block;
@@ -215,3 +290,5 @@ a {
     text-decoration: none; 
     color: whitesmoke; 
 }
+
+
