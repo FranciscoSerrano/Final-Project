@@ -1,7 +1,8 @@
 // Build init function 
 function init() {
 
-    //Build locations array
+    // * Locations may need to move to the stateCharts function, TBD
+    // Build locations array to pass into later functions
     d3.json("locations.json").then((locations) => { 
 
         // Grab a reference to the dropdown select element
@@ -9,20 +10,13 @@ function init() {
         //var selector = d3.select("#selDataset");
     
         // Instantiate list of options for the selector
-        // * Change this to full names instead of abbreviations
-        // * Might need to move into the previous code block 
-        // * Finalize how we're going to toggle between National and State data
-        //var stateNames = ["Entire U.S", "AL","AK","AZ","AR","CA","CO","CT","DE","DC",
-            //"FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT",
-            //"NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT",
-            //"VT","VA","WA","WV","WI","WY"
-        //];
 
-        //Run usCharts and pass in the locations object
-        usCharts(locations);
         // Use the first option from the lists to build the initial plots
         //var initCharts = stateNames[0];
         //buildCharts(initCharts);
+
+        // FOR TESTING: Run usCharts 
+        usCharts();
     });
 };
 
@@ -31,32 +25,12 @@ init();
 
 // Build optionChanged function - parameter likely to change based on what we decide for filters
 //function optionChanged(newState) {
-    // If we have an info panel it will be inserted here (aka buildInfo(newSelection);)
     //Conditional: If newState = "Entire US" usCharts(newState), else stateCharts(newState)
 //}
 
-// If we decide to include an info panel, fxn to build it goes here
-
 // Build Charts Function
-function usCharts(locations) {
-    // Declare arrays from locations data
-    var stateNames = [];
-    var stateLat = [];
-    var stateLong = [];    
+function usCharts() {
 
-    // Loop through locations to fill arrays
-    for (i in locations) {
-        // Access and save properties
-        let names = locations[i].name;
-        let lat = locations[i].latitude;
-        let long = locations[i].longitude
-
-        // Push properties to their arrays
-        stateNames.push(names);
-        stateLat.push(lat);
-        stateLong.push(long);
-    };
-    console.log(locations);
     // Use d3 to retrieve API data
     d3.json("https://api.covidtracking.com/v1/us/daily.json").then((data) => {
         
@@ -68,97 +42,188 @@ function usCharts(locations) {
         var negativeDelta = [];
         var totalResults = [];
         var currHospital = [];
-        var cumHospital = [];
-        
+        var currICU = [];
+        var currVent = [];
+        var recovered = [];
+
         // Loop through the data set to fill Covid arrays
         for (let i in data) {
+          var tempName = data[i].state;
 
-            // Create date object array
-            let str = data[i].date.toString();
-            let month = str.slice(4,6);
-            let day = str.slice(6,);
-            let year = str.slice(0,4);
-            let fDate = new Date(year, (month-1), day).toLocaleDateString()
-            date.push(fDate);
+          // Skip territories and DC
+          if (tempName == "AS" || tempName == "GU" || tempName == "MP" || tempName == "PR" || tempName == "VI") {
+              console.log('Skipped Territory ' + tempName)
+          }
+          else {  
+              // Create date object array
+              let str = data[i].date.toString();
+              let month = str.slice(4,6);
+              let day = str.slice(6,);
+              let year = str.slice(0,4);
+              let fDate = new Date(year, (month-1), day).toLocaleDateString()
+              date.push(fDate);
 
-            // Create cumulative positive results array
-            let totPos = data[i].positive;
-            positive.push(totPos);
+              // Create cumulative positive results array
+              let totPos = data[i].positive;
+              positive.push(totPos);
 
-            // Create positive delta array
-            let pos = data[i].positiveIncrease;
-            positiveDelta.push(pos);
-            
-            // Create cumulatve negative results array
-            let totNeg = data[i].negative;
-            negative.push(totNeg);
+              // Create positive delta array
+              let pos = data[i].positiveIncrease;
+              positiveDelta.push(pos);
+              
+              // Create cumulatve negative results array
+              let totNeg = data[i].negative;
+              negative.push(totNeg);
 
-            //Create negative delta array
-            let neg = data[i].negativeIncrease;
-            negativeDelta.push(neg);
+              //Create negative delta array
+              let neg = data[i].negativeIncrease;
+              negativeDelta.push(neg);
 
-            // Create cumulative  total results array
-            let tot = data[i].totalTestResultsIncrease;
-            totalResults.push(tot);
+              // Create cumulative  total results array
+              let tot = data[i].totalTestResultsIncrease;
+              totalResults.push(tot);
 
-            // Create current hospital total
-            let curr = data[i].hospitalizedCurrently;
-            currHospital.push(curr);
+              // Create current hospital total
+              let curr = data[i].hospitalizedCurrently;
+              currHospital.push(curr);
 
-            // Create cumulative hospital total
-            let cum = data[i].hospitalizedCumulative;
-            cumHospital.push(cum);
-        };
+              // Create current ICU total
+              let icu = data[i].inIcuCurrently
+              currICU.push(icu);
 
-        // US Map - Scatter of Hospital vs. ICU vs. Ventilator
-        
-        // Define hoverText
-        var hoverText = [];
+              // Create current ventilator total
+              let vent = data[i].onVentilatorCurrently;
+              currVent.push(vent);
 
-        for (i in stateNames, currHospital) {
-            var currentText = stateNames[i] + "\nCurrent Hospitalizations: " + currHospital[i];
-            hoverText.push(currentText); 
-        };
-        console.log(stateLong)
-        // Define data trace
-        var data = [{
-            type: 'scattergeo',
-            locationmode: 'USA-states',
-            lon: stateLong,
-            lat: stateLat,
-            hoverinfo: 'text',
-            text: hoverText,
-            mode: 'markers',
-            marker: {
-                symbol: 'circle',
-                size: currHospital, 
-                opacity: 0.8,
-                colorscale: 'picnic',
-                showscale: true,
+              // Create cumulative recovered total
+              let rec = data[i].recovered;
+              recovered.push(rec);
             }
-            //textfont: {
-                //size: define size,
-                //color: if it needs to change based on the color scale
-            //}
-        }];
-        
-        var layout = {
-            title: "US Hospitalization Rates by State",
-            colorbar: true,
-            geo: {
-                scope: 'usa',
-                projection: { type: 'albers usa'},
-            },
-            showland: true,
-            // landcolor: set default color probably grey or white but based on colorscale,
-            // paper_bgcolor: '#EAEAEA',
-            // plot_bgcolor: '#EAEAEA',
-            // hovermode: unsure if necessary
         };
+        
+        // Transform arrays into ascending date order
+        date.reverse();
+        positive.reverse();
+        positiveDelta.reverse();
+        negative.reverse();
+        negativeDelta.reverse();
+        totalResults.reverse();
+        currHospital.reverse();
+        currICU.reverse(),
+        currVent.reverse();
+        recovered.reverse();
+        
+        // Total Cases vs. Recovered Cases Time Series
+        // Notes to Self: Double check data integrity and change to curr Hosp/icu/ventilator triple line? Or maybe just acknowledge in statement.
+        // Define frames
+        var n = date.length;
+        var frames = [];
 
-        var config = {responsive: true};
-        Plotly.newPlot('CHARTDIV2', data, layout, config);
-});
+        for (var i = 0; i < n; i++) {
+            frames[i] = {data: [
+                {x: [], y: []}, 
+                {x:[], y: []}
+            ]};
+            frames[i].data[0].x = date.slice(0, (i)+1);
+            frames[i].data[0].y = recovered.slice(0, (i)+1);
+            frames[i].data[1].x = date.slice(0, (i)+1);
+            frames[i].data[1].y = positive.slice(0,(i)+1);
+        }
+       
+        // Define "Recovered" Trace
+        var trace1 = {
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Recovered Cases',
+            x: frames[30].data[0].x, 
+            y: frames[30].data[0].y,
+            line: {color: ' lightgrey'}
+        }
+        
+        // Define "Total Cases" Trace
+        var trace2 = {
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Total Cases',
+            fill: 'tonexty',
+            x: frames[30].data[1].x, 
+            y: frames[30].data[1].y,
+            line: {color: 'grey'}
+        }
+
+        // Create data object
+        var data = [trace1, trace2];
+
+        // Define Layout
+        var xrange = [frames[n-1].data[0].x[0], frames[n-1].data[0].x[n-1]];
+        var yrange = [frames[n-1].data[1].y[0], ((frames[n-1].data[1].y[n-1]) + 2000000)];
+
+        var layout = {
+            title: 'Total Cases vs. Recoveredgit  Cases in the US',
+            xaxis: {
+                title: 'Date',
+                range: xrange,
+                //type: 'date',
+                //autorange: true,
+                showgrid: false
+            },
+            yaxis: {  
+                title: 'Number of Cases',
+                range: yrange,
+                rangemode: 'nonnegative',
+                //autorange: true,
+                showgrid: false
+            },
+            legend: {
+                orientation:'h',
+                x: 0.5,
+                y: 1.2,
+                xanchor: 'center'
+            },
+            updatemenus: [{
+                x: 0.5,
+                y: 0,
+                yanchor: "top",
+                xanchor: "center",
+                showactive: false,
+                direction: "left",
+                type: "buttons",
+                buttons: [{
+                  method: "animate",
+                  args: [null, {
+                    fromcurrent: true,
+                    transition: {
+                      duration: 0,
+                    },
+                    frame: {
+                      duration: 40,
+                      redraw: false
+                    }
+                  }],
+                  label: "Play" }, 
+                  {
+                  method: "animate",
+                  args: [
+                    [null],
+                    {
+                      mode: "immediate",
+                      transition: {
+                        duration: 0
+                      },
+                      frame: {
+                        duration: 0,
+                        redraw: false
+                      }
+                    }
+                  ],
+                  label: "Pause"
+                }]
+            }]
+        };
+        Plotly.newPlot('card long', data, layout).then(function() {
+            Plotly.addFrames('card long', frames);
+        });
+    });
 };    
 
 // We need to be sure to add a "Last Updated" note at the bottom of the page, which can be filled via a ref to the API's "dateChecked" field
