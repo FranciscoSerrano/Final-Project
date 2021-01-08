@@ -225,6 +225,7 @@ let app = new Vue({
       return {
         title:'<b>' + title + '</b>',
         showlegend: false,
+        height: 600,
         xaxis: {
           title: xaxistitle,
           tickformat: ',.0%',
@@ -288,6 +289,7 @@ let app = new Vue({
     graph3Layout(title, xaxistitle, yaxistitle) {
       return {
         title:'<b>' + title + '</b>',
+        height: 600,
         showlegend: false,
         xaxis: {
           title: xaxistitle,
@@ -309,6 +311,7 @@ let app = new Vue({
           color: this.graphTextColor,
           size: 0.9 * this.fontSize
         },
+
       }
     },
 
