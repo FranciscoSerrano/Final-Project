@@ -169,13 +169,13 @@ function stateCharts() {
                     scope: 'usa',
                     projection: { type: 'albers usa'},
                     showland: true,
-                    landcolor: '#EAEAEA',
+                    landcolor: '#3e3e3e',
                     showocean: true,
-                    oceancolor:'#EAEAEA',
-                    bgcolor:'#EAEAEA'
+                    oceancolor:'#3e3e3e',
+                    bgcolor:'#3e3e3e'
                 },                
-                paper_bgcolor: '#EAEAEA',
-                plot_bgcolor: '#EAEAEA',
+                paper_bgcolor: '#3e3e3e',
+                plot_bgcolor: '#3e3e3e',
             };
 
             var config = {
