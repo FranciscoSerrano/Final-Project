@@ -124,10 +124,10 @@ function usCharts() {
                 {x: [], y: []}, 
                 {x:[], y: []}
             ]};
-            frames[i].data[0].x = date.slice(0, (i)+1);
-            frames[i].data[0].y = recovered.slice(0, (i)+1);
-            frames[i].data[1].x = date.slice(0, (i)+1);
-            frames[i].data[1].y = positive.slice(0,(i)+1);
+            frames[i].data[0].x = date.slice(0, i+1);
+            frames[i].data[0].y = recovered.slice(0, i+1);
+            frames[i].data[1].x = date.slice(0, i+1);
+            frames[i].data[1].y = positive.slice(0, i+1);
         }
        
         // Define "Recovered" Trace
@@ -220,8 +220,8 @@ function usCharts() {
                 }]
             }]
         };
-        Plotly.newPlot('card long', data, layout).then(function() {
-            Plotly.addFrames('card long', frames);
+        Plotly.newPlot('CHARTDIV2', data, layout).then(function() {
+            Plotly.addFrames('CHARTDIV2', frames);
         });
     });
 };    

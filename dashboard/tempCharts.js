@@ -29,6 +29,7 @@ function stateCharts() {
         var stateNames = [];
         var stateLat = [];
         var stateLong = [];    
+        var statePop = [];
 
         // Loop through locations to fill arrays
         for (i in locations) {
@@ -36,13 +37,15 @@ function stateCharts() {
             let names = locations[i].name;
             let lat = locations[i].lat;
             let long = locations[i].long;
+            let pop = locations[i].pop;
             
             // Push properties to their arrays
             stateNames.push(names);
             stateLat.push(lat);
             stateLong.push(long);
+            statePop.push(pop);
         };
-
+        
         // Use d3 to retrieve API data
         d3.json("https://api.covidtracking.com/v1/states/current.json").then((data) => {
         
@@ -55,7 +58,7 @@ function stateCharts() {
             var stateTotalResults = [];
             var stateCurrHospital = [];
             var stateCumHospital = [];
-            
+
             // Set Scale
             var scale = 100  
             
@@ -104,11 +107,16 @@ function stateCharts() {
                     // Create cumulative hospital total
                     let cum = data[i].hospitalizedCumulative;
                     stateCumHospital.push(cum);
-
+                    
+                    // Calculate curr. hospital proportion
+                    var hospitalRatio = new Array(stateCurrHospital.length)
+                    for(i=0; i<stateCurrHospital.length; i++) {
+                        hospitalRatio[i] = (stateCurrHospital[i] / statePop[i]) *100;
+                    }
+                    
                     // POTENTIALLY: Add info for hospital delta
                     // POTENTIALLY: Add info for ventilator and ICU curr vs. cum. and deltas
-                }
-
+                }    
             };
 
             // US Map - Scatter of Current Hospital Rates
@@ -121,8 +129,19 @@ function stateCharts() {
                 var currentText = stateNames[i] + "<br>Current Hospitalizations: " + stateCurrHospital[i];
                 hoverText.push(currentText); 
             };
-            console.log(stateCurrHospital)
+            
             // Define data trace
+            // Define characteristics - marker size
+            var marksize = [];
+            for (i in hospitalRatio) {
+                var ratio = hospitalRatio[i] * 500
+                marksize.push(ratio);
+            };
+
+            // Define characteristics - color scale
+            var minColor = Math.min.apply(Math, hospitalRatio)
+            var maxColor = Math.max.apply(Math, hospitalRatio);
+
             var data = [{
                 type: 'scattergeo',
                 locationmode: 'USA-states',
@@ -133,35 +152,32 @@ function stateCharts() {
                 mode: 'markers',
                 marker: {
                     symbol: 'circle',
-                    size: stateCurrHospital,
-                    sizeref: 10,
-                    sizemin: 0,
-                    sizemode: 'area',
+                    size: marksize,
                     opacity: 0.8,
-                    colorscale: 'picnic',
+                    color: hospitalRatio,
+                    colorscale: 'Jet',
+                    cmin: minColor,
+                    cmax: maxColor,
                     showscale: true,
                 }
-                //textfont: {
-                    //size: define size,
-                    //color: if it needs to change based on the color scale
-                //}
             }];
 
             var layout = {
                 title: "Current US Hospitalizations by State",
                 colorbar: true,
                 geo: {
+                    
                     scope: 'usa',
                     projection: { type: 'albers usa'},
                 },
-                showland: true,
-                // landcolor: set default color probably grey or white but based on colorscale,
+                landcolor: '#EAEAEA',
                 paper_bgcolor: '#EAEAEA',
                 plot_bgcolor: '#EAEAEA',
-                // hovermode: unsure if necessary
             };
 
-            var config = {responsive: true};
+            var config = {
+                scale: 0.5,
+                responsive: true};
             
             Plotly.newPlot('CHARTDIV2', data, layout, config);
             // https://code.tutsplus.com/tutorials/create-interactive-charts-using-plotlyjs-bubble-and-dot-charts--cms-29209
@@ -170,7 +186,7 @@ function stateCharts() {
             // https://plotly.com/javascript/bubble-charts/#marker-size-on-bubble-charts
             // https://plotly.com/javascript/bubble-maps/
             // https://plotly.com/javascript/map-animations/
-            // https://plotly.com/javascript/gapminder-example/      
+            // https://plotly.com/javascript/gapminder-example/                                         
         });
     },
     console.log("Loaded!"));
