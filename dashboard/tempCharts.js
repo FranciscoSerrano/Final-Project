@@ -165,12 +165,15 @@ function stateCharts() {
             var layout = {
                 title: "Current US Hospitalizations by State",
                 colorbar: true,
-                geo: {
-                    
+                geo: {                    
                     scope: 'usa',
                     projection: { type: 'albers usa'},
-                },
-                landcolor: '#EAEAEA',
+                    showland: true,
+                    landcolor: '#EAEAEA',
+                    showocean: true,
+                    oceancolor:'#EAEAEA',
+                    bgcolor:'#EAEAEA'
+                },                
                 paper_bgcolor: '#EAEAEA',
                 plot_bgcolor: '#EAEAEA',
             };
