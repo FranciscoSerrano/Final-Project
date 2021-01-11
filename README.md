@@ -4,7 +4,7 @@
 
 ## Overview
 ### Vision
-We want to provide the most convincing web app and data experience to show the effectiveness of masks during the COVID-19 global pandemic.
+To provide the most convincing web app and data experience to show the effectiveness of masks during the COVID-19 global pandemic.
 ### Mission
 To help prevent the spread of COVID-19 and convince more people to wear masks.
 ### General Overview
@@ -38,6 +38,7 @@ We will communicate through:
 ```
 .
 ├── projects
+│   ├── app
 │   ├── mask-api
 │   ├── mask-dashboard
 │   └── mask-model
@@ -61,11 +62,17 @@ We will communicate through:
 A helpful checklist for the things that need to be accomlished:
 
 - [x] Project Overview
-- [x] The Week of December 9th deliverables
+- [x] December 9th deliverables
     - [x] Set up a group repository
     - [x] Create a project timeline
     - [x] Establish a comminucation protocol
     - [x] Decide which technoligies will be used
-- [x] Add ML-Model and venv
-- [x] Begin work on front end
-- [x] Create a branch for each team members features
+    - [x] Add ML-Model and venv
+    - [x] Begin work on front end
+    - [x] Create a branch for each team members features
+- [x] January 10th Deliverables
+    - [x] Presentation Drafted
+    - [x] Code is production ready
+    - [x] Fully integrated database
+- [ ] January 17th Deliverables
+
