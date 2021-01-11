@@ -53,9 +53,13 @@ We will communicate through:
 ## Technologies Used
 
 - Python 3
+- Javascript, HTML, CSS
 - Numpy, Tensorflow, Keras, OpenCV
 - React, D3.js, Bootstrap
 - Flask, SQLAlchemcy, PostgreSQL, MongoDB
+
+## Links
+[Google Slides Presentation](https://docs.google.com/presentation/d/1S5fD1oc8D6zi-y68vAaV90hLQpB2K51Yafq7mcVlOjc/edit?usp=sharing)
 
 ## Todo Checklist
 
