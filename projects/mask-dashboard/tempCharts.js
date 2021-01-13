@@ -2,7 +2,7 @@
 function init() {
 
     // FOR TESTING: Run usCharts 
-    stateCharts();
+    usCharts();
 };
 
 // Initialize Dashboard

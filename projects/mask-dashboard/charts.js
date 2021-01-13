@@ -2,7 +2,7 @@
 function init() {
 
   // FOR TESTING: Run usCharts 
-  usCharts();
+  stateCharts();
   
 };
 
@@ -206,9 +206,7 @@ function stateCharts() {
           };
           
           // Plot in div
-          Plotly.newPlot('bubble', data, layout, config);
-          // https://plotly.com/javascript/map-animations/
-          // https://plotly.com/javascript/gapminder-example/                                         
+          Plotly.newPlot('bubble', data, layout, config);                                   
       });
   },
   console.log("Loaded!"));
