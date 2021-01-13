@@ -1,32 +1,12 @@
 // Build init function 
 function init() {
 
-    // * Locations may need to move to the stateCharts function, TBD
-    // Build locations array to pass into later functions
-    d3.json("locations.json").then((locations) => { 
-
-        // Grab a reference to the dropdown select element
-        // * Make sure the selector will work inside this function
-        //var selector = d3.select("#selDataset");
-    
-        // Instantiate list of options for the selector
-
-        // Use the first option from the lists to build the initial plots
-        //var initCharts = stateNames[0];
-        //buildCharts(initCharts);
-
-        // FOR TESTING: Run usCharts 
-        usCharts();
-    });
+    // FOR TESTING: Run usCharts 
+    stateCharts();
 };
 
 // Initialize Dashboard
 init();
-
-// Build optionChanged function - parameter likely to change based on what we decide for filters
-//function optionChanged(newState) {
-    //Conditional: If newState = "Entire US" usCharts(newState), else stateCharts(newState)
-//}
 
 // Build Charts Function
 function usCharts() {
@@ -45,12 +25,12 @@ function usCharts() {
         var currICU = [];
         var currVent = [];
         var recovered = [];
-
+  
         // Loop through the data set to fill Covid arrays
         for (let i in data) {
           var tempName = data[i].state;
-
-          // Skip territories and DC
+  
+          // Skip territories
           if (tempName == "AS" || tempName == "GU" || tempName == "MP" || tempName == "PR" || tempName == "VI") {
               console.log('Skipped Territory ' + tempName)
           }
@@ -62,11 +42,11 @@ function usCharts() {
               let year = str.slice(0,4);
               let fDate = new Date(year, (month-1), day).toLocaleDateString()
               date.push(fDate);
-
+  
               // Create cumulative positive results array
               let totPos = data[i].positive;
               positive.push(totPos);
-
+  
               // Create positive delta array
               let pos = data[i].positiveIncrease;
               positiveDelta.push(pos);
@@ -74,27 +54,27 @@ function usCharts() {
               // Create cumulatve negative results array
               let totNeg = data[i].negative;
               negative.push(totNeg);
-
+  
               //Create negative delta array
               let neg = data[i].negativeIncrease;
               negativeDelta.push(neg);
-
+  
               // Create cumulative  total results array
               let tot = data[i].totalTestResultsIncrease;
               totalResults.push(tot);
-
+  
               // Create current hospital total
               let curr = data[i].hospitalizedCurrently;
               currHospital.push(curr);
-
+  
               // Create current ICU total
               let icu = data[i].inIcuCurrently
               currICU.push(icu);
-
+  
               // Create current ventilator total
               let vent = data[i].onVentilatorCurrently;
               currVent.push(vent);
-
+  
               // Create cumulative recovered total
               let rec = data[i].recovered;
               recovered.push(rec);
@@ -115,10 +95,10 @@ function usCharts() {
         
         // Total Cases vs. Recovered Cases Time Series
         // Notes to Self: Double check data integrity and change to curr Hosp/icu/ventilator triple line? Or maybe just acknowledge in statement.
-        // Define frames
+        // Define frames - array of arrays, increasing in length sequentially
         var n = date.length;
         var frames = [];
-
+  
         for (var i = 0; i < n; i++) {
             frames[i] = {data: [
                 {x: [], y: []}, 
@@ -150,16 +130,19 @@ function usCharts() {
             y: frames[30].data[1].y,
             line: {color: 'grey'}
         }
-
+  
         // Create data object
         var data = [trace1, trace2];
-
+  
         // Define Layout
+        // Buffer allows for most responsive design as data is updated
+        // n = date.length defined above
+        let buffer = 2000000
         var xrange = [frames[n-1].data[0].x[0], frames[n-1].data[0].x[n-1]];
-        var yrange = [frames[n-1].data[1].y[0], ((frames[n-1].data[1].y[n-1]) + 2000000)];
-
+        var yrange = [frames[n-1].data[1].y[0], ((frames[n-1].data[1].y[n-1]) + buffer)];
+  
         var layout = {
-            title: 'Total Cases vs. Recoveredgit  Cases in the US',
+            title: 'Total Cases vs. Recovered Cases in the US',
             xaxis: {
                 title: 'Date',
                 range: xrange,
@@ -224,6 +207,7 @@ function usCharts() {
             Plotly.addFrames('CHARTDIV2', frames);
         });
     });
-};    
-
-// We need to be sure to add a "Last Updated" note at the bottom of the page, which can be filled via a ref to the API's "dateChecked" field
+  };    
+  
+  // We need to be sure to add a "Last Updated" note at the bottom of the page, which can be filled via a ref to the API's "dateChecked" field
+  
