@@ -98,7 +98,7 @@
     <meta name="twitter:description" content="" />
     <meta name="twitter:image" content="" />
 
-    <link rel="stylesheet" href="../static/index.css" />
+    <link rel="stylesheet" href="../static/styles/index.css" />
   </head>
   <body>
     <div id="content-top">
@@ -204,15 +204,18 @@
                   
             </div>
         </div>
-        
       <div class="card long">
-        <img class="viz" src="../static/assets/viz/covid_viz_7.svg" />
-      </div>
+        <div id="bubble">
+        </div>
+      </div>  
       <div class="card">
         <img class="viz" src="../static/assets/viz/covid_viz_1.svg" />
       </div>
       <div class="card">
         <img class="viz" src="../static/assets/viz/covid_viz_2.svg" />
+      </div>
+      <div class="card long">
+        <img class="viz" src="../static/assets/viz/covid_viz_7.svg" />
       </div>
       <div class="card">
         <img class="viz" src="../static/assets/viz/covid_viz_3.svg" />
@@ -252,10 +255,13 @@
         </div>
       </div>
     </footer>
+    <script src="../static/libraries/plotly-basic.min.js"></script>
+    <script src="../static/libraries/vue.min.js"></script>
+    <script src="../static/libraries/vue-observe-visibility.js"></script>
+    <script src="../static/libraries/lambertw.js"></script>
+    <script src="../static/js/vue-definitions.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="../static/js/charts.js"></script>
   </body>
-  <script src="../static/libraries/plotly-basic.min.js"></script>
-  <script src="../static/libraries/vue.min.js"></script>
-  <script src="../static/libraries/vue-observe-visibility.js"></script>
-  <script src="../static/libraries/lambertw.js"></script>
-  <script src="../static/js/vue-definitions.js"></script>
 </html>
