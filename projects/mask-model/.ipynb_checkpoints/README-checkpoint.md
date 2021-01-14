@@ -4,11 +4,15 @@
 
 ## Project
 
+
+
 ### 📊 Wrangling the Data
 
-Image files of faces with and without face mask.
+Image files of faces and no faces.
 
 ### 😀 Face Detection Model
+
+
 
 OpenCV provides the CascadeClassifier class that can be used to create a cascade classifier for face detection. The constructor can take a filename as an argument that specifies the XML file for a pre-trained model.
 
@@ -18,9 +22,9 @@ Download a pre-trained model for frontal face detection from the OpenCV GitHub p
 
 ### 😷 Mask Detection Model
 
-Use a cascade classifer to detect a face in a webcam window, extract the face and pass it to a convolutional neural network to classify the image as "mask" or "no mask".
+Use a cascade classifer to detect a face in a webcam window, extract the face and pass it to a convolutional neural network to classify the image as "no mask" or "mask".
 
-![Project Overview](resources/ML_Project_Overview.png)
+![Project Overvierw](resources/ML_Project_Overview.png)
 
 ## 🖥 Environment
 
@@ -32,34 +36,31 @@ pip -r requirements.txt
 ```
 
 ### Methods Used
-
-- Inferential Statistics
-- Machine Learning
-- Data Visualization
-- Predictive Modeling
-- etc.
+* Inferential Statistics
+* Machine Learning
+* Data Visualization
+* Predictive Modeling
+* etc.
 
 ### Technologies Used
-
-- Python 3
-- OpenCV
-- Tensorflow/Keras
-- Pandas
-- numpy
-- matplotlib
+* Python 3
+* OpenCV
+* Tensorflow/Keras
+* Pandas
+* numpy
+* matplotlib
 
 ## 📑 Todo Checklist
-
 **For a more detailed view of project tasks visit the Projects tab**
 
-A helpful checklist for the things that need to be accomplished:
+A helpful checklist for the things that need to be accomlished:
 
 - [x] Project Overview
 - [x] The Week of December 9th deliverables
-  - [x] Set up a group repository
-  - [x] Create a project timeline
-  - [x] Establish a communication protocol
-  - [x] Decide which technologies will be used
+    - [x] Set up a group repository
+    - [x] Create a project timeline
+    - [x] Establish a comminucation protocol
+    - [x] Decide which technoligies will be used
 - [ ] Add ML-Model and venv
 - [ ] Begin work on front end
 - [ ] Create a branch for each team members features
