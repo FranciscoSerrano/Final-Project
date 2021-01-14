@@ -12,93 +12,93 @@
     <link
       rel="apple-touch-icon"
       sizes="57x57"
-      href="../static/favicon/apple-icon-57x57.png"
+      href="{{ url_for('static', filename='apple-icon-57x57.png') }}"
     />
     <link
       rel="apple-touch-icon"
       sizes="60x60"
-      href="../static/favicon/apple-icon-60x60.png"
+      href="{{ url_for('static', filename='apple-icon-60x60.png') }}"
     />
     <link
       rel="apple-touch-icon"
       sizes="72x72"
-      href="../static/favicon/apple-icon-72x72.png"
+      href="{{ url_for('static', filename='apple-icon-72x72.png') }}"
     />
     <link
       rel="apple-touch-icon"
       sizes="76x76"
-      href="../static/favicon/apple-icon-76x76.png"
+      href="{{ url_for('static', filename='apple-icon-76x76.png') }}"
     />
     <link
       rel="apple-touch-icon"
       sizes="114x114"
-      href="../static/favicon/apple-icon-114x114.png"
+      href="{{ url_for('static', filename='apple-icon-114x114.png') }}"
     />
     <link
       rel="apple-touch-icon"
       sizes="120x120"
-      href="../static/favicon/apple-icon-120x120.png"
+      href="{{ url_for('static', filename='apple-icon-120x120.png') }}"
     />
     <link
       rel="apple-touch-icon"
       sizes="144x144"
-      href="../static/favicon/apple-icon-144x144.png"
+      href="{{ url_for('static', filename='apple-icon-144x144.png') }}"
     />
     <link
       rel="apple-touch-icon"
       sizes="152x152"
-      href="../static/favicon/apple-icon-152x152.png"
+      href="{{ url_for('static', filename='apple-icon-152x152.png') }}"
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="../static/favicon/apple-icon-180x180.png"
+      href="{{ url_for('static', filename='apple-icon-180x180.png') }}"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="192x192"
-      href="../static/favicon/android-icon-192x192.png"
+      href="{{ url_for('static', filename='android-icon-192x192.png') }}"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="../static/favicon/favicon-32x32.png"
+      href="{{ url_for('static', filename='favicon-32x32.png') }}"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="96x96"
-      href="../static/favicon/favicon-96x96.png"
+      href="{{ url_for('static', filename='favicon-96x96.png') }}"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="../static/favicon/favicon-16x16.png"
+      href="{{ url_for('static', filename='favicon-16x16.png') }}"
     />
-    <link rel="manifest" href="../static/favicon/manifest.json" />
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta
       name="msapplication-TileImage"
-      content="../static/favicon/ms-icon-144x144.png"
+      content="{{ url_for('static', filename='ms-icon-144x144.png') }}"
     />
     <meta name="theme-color" content="#ffffff" />
 
-    <meta property="og:title" content="" />
+    <meta property="og:title" content="Masky" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="" />
     <meta property="og:url" content="" />
-    <meta property="og:site_name" content="" />
+    <meta property="og:site_name" content="Masky" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="" />
-    <meta name="twitter:title" content="" />
+    <meta name="twitter:title" content="Masky" />
     <meta name="twitter:description" content="" />
     <meta name="twitter:image" content="" />
 
-    <link rel="stylesheet" href="../static/styles/index.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
   </head>
   <body>
     <div id="content-top">
@@ -110,7 +110,7 @@
         </ul>
         <section>
             <a href="https://github.com/FranciscoSerrano/Final-Project"><img
-            src="../static/assets/githublogo.svg"
+            src="{{ url_for('static', filename='githublogo.svg') }}"
             alt="Github"
             width="30"
             height="30"
@@ -125,7 +125,7 @@
             <span>Get Started</span>
           </div>
         </aside>
-        <img src="../static/assets/facemask.svg" width="450" height="450" />
+        <img src="{{ url_for('static', filename='facemask.svg') }}" width="450" height="450" />
       </section>
     </div>
     <section id="content-middle">
@@ -134,11 +134,11 @@
           <h2>How To Stop A Pandemic</h2>
           <br>
           <p>
-            To extinguish a fire, it must be starved of oxygen. 
+            To extinguish a fire, it must be starved of oxygen.
             However, it does not need to be starved of all oxygen, just enough to stop the fire from growing.
-            It's the same with a pandemic. 
-            Disease transmission does not need to be cut by 100% for a pandemic to end. 
-            If transmission is lowered just enough to stop the disease from spreading, the COVID-19 pandemic can be extenguished.
+            It's the same with a pandemic.
+            Disease transmission does not need to be cut by 100% for a pandemic to end.
+            If transmission is lowered just enough to stop the disease from spreading, the COVID-19 pandemic can be extinguished.
           </p>
           <br>
           <p>
@@ -149,7 +149,7 @@
           </p>
           <br>
           <p>
-            Social distancing, quarantining, and lockdowns decrease the number of encounters per person.
+            Social distancing, quarantining, and lock-downs decrease the number of encounters per person.
             Masks decrease the chance of infection.
             The goal of these public health strategies is to bring the pandemic under control by pulling R0 beneath 1.
             With this in mind, we can re-express the impact of masks in terms of R0.
@@ -157,43 +157,40 @@
           <br>
           <p>
             The graph below shows how R0 varies as mask-wearing increases.
-            Use the first slider to vary R0, which for COVID-19 is between 2 and 3. 
+            Use the first slider to vary R0, which for COVID-19 is between 2 and 3.
             This is in the absence of other public health measures such as social distancing, which further reduce R0.
-            By varying the effectiveness of the masks, you can see how they can assist with decreasiing COVID-19 infection rates.
+            By varying the effectiveness of the masks, you can see how they can assist with decreasing COVID-19 infection rates.
           </p>
-      
-
         </section>
       </section>
       <div id="chart" class="card long">
             <div>
-                    
+
                     <label class="row half bigsplash">
                       <div>R0: {% raw %}{{R0}}{% endraw %}</div>
                       <slider v-model="R0" :min="1" :max="3" :step="0.01"></slider>
                     </label>
-              
+
                     <label class="row half bigsplash">
                       <div>Mask Effectiveness on Exhale: {% raw %}{{convertToPercent(eout)}}{% endraw %}%</div>
                       <slider v-model="eout" :min="0" :max="0.99" :step="0.01"></slider>
                     </label>
-              
+
                     <label class="row half bigsplash">
                       <div>Mask Effectiveness on Inhale: {% raw %}{{convertToPercent(ein)}}{% endraw %}%</div>
                       <slider v-model="ein" :min="0" :max="0.99" :step="0.01"></slider>
                     </label>
-              
+
                     <graph :traces="graph2Traces" :layout="graph2Layout(
                       'How Masks Reduce R0',
                       'Percentage of People Who Wear Masks',
                       '# People a Contagious Person Infects (R0)',
                       'Epidemic Under Control',
                       'Epidemic Out Of Control'
-                    )" :config="config"></graph>       
-                  
+                    )" :config="config"></graph>
+
             </div>
             <div>
-
                     <graph :traces="graph3Traces(
                     '% Infected'
                     )" :layout="graph3Layout(
@@ -201,77 +198,13 @@
                     'Percentage of People Who Wear Masks',
                     'Percentage of People Who Will Be Infected'
                   )" :config="config"></graph>
-                  
             </div>
         </div>
       <div class="card long">
         <div id="uploader">
-          <div id="file-gallery">
-            <div id="introduction">
-              <h2>No images yet</h2>
-              <p>Try adding an image with the file picker &#9755;</p>
-            </div>
-          </div>
-          <div id="drop-container">
-            <!--
-            The current dragenter/dragleave events leave little to be desired. They
-            trigger on all elements not just the one with a listener. Because of that
-            most solutions use the dragover as it is more consistent. Ultimatly, using
-            a dragenter results in the entering event triggering only some of the time
-            and is not cicistent to the user's movements. Adding a dragleave on an
-            element with dragover causes a flicker as the two events are repeatedly
-            fired sporatically. To avoid these user interaction issues it is better to
-            have two elements monitor the dragover and react according to which
-            element it is triggered on. To do that we need an overlay that covers the
-            dropzone and an event on the document to cover the leaving. This setup
-            produces a more organic user interaction and allows us to add-and-forget
-            event handlers to these elements and use the state machine logic to do the
-            right thing dispite the deluge of events being fired.
-          -->
-            <div
-              id="dropzone-overlay"
-              aria-dropeffect="copy"
-              data-show="dragging"
-            ></div>
-            <div id="idle-message" role="button" data-show="idle">
-              <h2>Import Image</h2>
-              <p>
-                Drag an image to import here <strong>or</strong> click to browse for a
-                an image to determine if a mask is being worn.
-              </p>
-            </div>
-            <div id="dragging-message" data-show="dragging">
-              <h2>Drop file here</h2>
-              <p>Or press <kbd>Escape</kbd> to cancel.</p>
-            </div>
-            <div id="processing-message" data-show="processing">
-              <h2>Importing&hellip;</h2>
-              <div class="meter">
-                <span id="progress-bar">
-                  <progress id="accessible-bar" max="100"></progress>
-                </span>
-              </div>
-            </div>
-            <div id="completed-message" data-show="completed">
-              <h2>Imported</h2>
-              <p>Image imported successfully.</p>
-            </div>
-            <div id="error-message" role="button" data-show="error">
-              <h2>Error</h2>
-              <p id="error"></p>
-            </div>
-            <input id="file-picker" type="file" name="import-file" />
-          </div>
+
         </div>
-        <template id="gallery-item">
-          <div class="file-gallery-item">
-            <button type="button" class="close-button" aria-label="Remove image">
-              &times;
-            </button>
-            <img class="image" />
-          </div>
-        </template>
-      </div>  
+      </div>
       <div class="card">
         <img class="viz" src="../static/assets/viz/covid_viz_1.svg" />
       </div>
@@ -293,7 +226,7 @@
       <div class="card">
         <img class="viz" src="../static/assets/viz/covid_viz_6.svg" />
       </div>
-      
+
     </section>
     <!-- FOOTER -->
     <footer class="section-footer">
@@ -319,7 +252,6 @@
         </div>
       </div>
     </footer>
-
     <script src="https://unpkg.com/xstate@4/dist/xstate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
     <script src="../static/libraries/plotly-basic.min.js"></script>
