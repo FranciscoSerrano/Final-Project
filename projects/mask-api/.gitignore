@@ -131,3 +131,4 @@ dmypy.json
 # Folder files
 .DS_Store
 .idea/
+.vscode/
