@@ -166,79 +166,142 @@
         </section>
       </section>
       <div id="chart" class="card long">
-            <div>
-                    
-                    <label class="row half bigsplash">
-                      <div>R0: {% raw %}{{R0}}{% endraw %}</div>
-                      <slider v-model="R0" :min="1" :max="3" :step="0.01"></slider>
-                    </label>
-              
-                    <label class="row half bigsplash">
-                      <div>Mask Effectiveness on Exhale: {% raw %}{{convertToPercent(eout)}}{% endraw %}%</div>
-                      <slider v-model="eout" :min="0" :max="0.99" :step="0.01"></slider>
-                    </label>
-              
-                    <label class="row half bigsplash">
-                      <div>Mask Effectiveness on Inhale: {% raw %}{{convertToPercent(ein)}}{% endraw %}%</div>
-                      <slider v-model="ein" :min="0" :max="0.99" :step="0.01"></slider>
-                    </label>
-              
-                    <graph :traces="graph2Traces" :layout="graph2Layout(
-                      'How Masks Reduce R0',
-                      'Percentage of People Who Wear Masks',
-                      '# People a Contagious Person Infects (R0)',
-                      'Epidemic Under Control',
-                      'Epidemic Out Of Control'
-                    )" :config="config"></graph>       
-                  
-            </div>
-            <div>
-
-                    <graph :traces="graph3Traces(
-                    '% Infected'
-                    )" :layout="graph3Layout(
-                    'How Masks Reduce Infections',
-                    'Percentage of People Who Wear Masks',
-                    'Percentage of People Who Will Be Infected'
-                  )" :config="config"></graph>
-                  
-            </div>
+        <div>
+          <label class="row half bigsplash">
+            <div>R0: {% raw %}{{R0}}{% endraw %}</div>
+            <slider v-model="R0" :min="1" :max="3" :step="0.01"></slider>
+          </label>
+          <label class="row half bigsplash">
+            <div>Mask Effectiveness on Exhale: {% raw %}{{convertToPercent(eout)}}{% endraw %}%</div>
+            <slider v-model="eout" :min="0" :max="0.99" :step="0.01"></slider>
+          </label>
+          <label class="row half bigsplash">
+            <div>Mask Effectiveness on Inhale: {% raw %}{{convertToPercent(ein)}}{% endraw %}%</div>
+            <slider v-model="ein" :min="0" :max="0.99" :step="0.01"></slider>
+          </label>
+          <graph :traces="graph2Traces" :layout="graph2Layout(
+            'How Masks Reduce R0',
+            'Percentage of People Who Wear Masks',
+            '# People a Contagious Person Infects (R0)',
+            'Epidemic Under Control',
+            'Epidemic Out Of Control'
+          )" :config="config">
+          </graph>       
         </div>
+        <div>
+          <graph :traces="graph3Traces(
+          '% Infected'
+          )" :layout="graph3Layout(
+          'How Masks Reduce Infections',
+          'Percentage of People Who Wear Masks',
+          'Percentage of People Who Will Be Infected'
+          )" :config="config">
+          </graph>
+        </div>
+      </div>
       <div class="card long">
+        <div id="bubble">
+        </div>
+      </div> 
+      <div class="card long uploader">
         <div id="uploader">
           <div id="file-gallery">
             <div id="introduction">
-              <h2>No images yet</h2>
-              <p>Try adding an image with the file picker &#9755;</p>
+              <h2>Currently no assessed images.</h2>
+              <p>Try adding an image with the file picker.</p>
             </div>
           </div>
           <div id="drop-container">
             <!--
             The current dragenter/dragleave events leave little to be desired. They
             trigger on all elements not just the one with a listener. Because of that
-            most solutions use the dragover as it is more consistent. Ultimatly, using
+            most solutions use the dragover as it is more consistent. Ultimately, using
             a dragenter results in the entering event triggering only some of the time
-            and is not cicistent to the user's movements. Adding a dragleave on an
+            and is not consistent to the user's movements. Adding a dragleave on an
             element with dragover causes a flicker as the two events are repeatedly
-            fired sporatically. To avoid these user interaction issues it is better to
+            fired sporadically. To avoid these user interaction issues it is better to
             have two elements monitor the dragover and react according to which
             element it is triggered on. To do that we need an overlay that covers the
             dropzone and an event on the document to cover the leaving. This setup
             produces a more organic user interaction and allows us to add-and-forget
             event handlers to these elements and use the state machine logic to do the
-            right thing dispite the deluge of events being fired.
+            right thing despite the deluge of events being fired.
           -->
             <div
               id="dropzone-overlay"
               aria-dropeffect="copy"
               data-show="dragging"
-            ></div>
+            >
+            </div>
             <div id="idle-message" role="button" data-show="idle">
-              <h2>Import Image</h2>
+              <span class="cloud-icon">
+                <svg
+                class="cloud"
+                data-hidden="false"
+                viewBox="0 0 32 32"
+                width="100"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="1.5"
+                fill="none"
+                stroke="#eaeaea"
+                stroke-width="2"
+                >
+                <path
+                  d="M18 22h6.001A5.003 5.003 0 0029 17a4.997 4.997 0 00-3.117-4.634 5.503 5.503 0 00-7.789-3.813 7 7 0 00-13.082 3.859A5.007 5.007 0 002 17c0 2.761 2.232 5 4.999 5H13"
+                ></path>
+                </svg>
+                <svg
+                class="line"
+                data-hidden="false"
+                viewBox="0 0 32 32"
+                width="100"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="1.5"
+                fill="none"
+                stroke="#eaeaea"
+                stroke-width="2"
+              >
+                <path d="M18 22h-5"></path>
+              </svg>
+              <svg
+                class="arrow"
+                data-hidden="true"
+                viewBox="0 0 32 32"
+                width="100"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="1.5"
+                fill="none"
+                stroke="#eaeaea"
+                stroke-width="2"
+              >
+                <path d="M15.5 15.151v11.824-11.824z"></path>
+                <path d="M12.075 18.34l3.425-3.528 3.425 3.528"></path>
+              </svg>
+              <!-- <svg
+                class="check"
+                data-hidden="true"
+                viewBox="0 0 32 32"
+                width="100"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="1.5"
+                fill="none"
+                stroke="#eaeaea"
+                stroke-width="2"
+              >
+                <path d="M11.4 15.787l3.426 2.553 5.774-5.556"></path>
+              </svg> -->
+              </span>
+              <span>
+                <h2>Import Image</h2>
               <p>
                 Drag an image to import here <strong>or</strong> click to browse for a
                 an image to determine if a mask is being worn.
               </p>
+              </span>
             </div>
             <div id="dragging-message" data-show="dragging">
               <h2>Drop file here</h2>

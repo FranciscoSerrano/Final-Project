@@ -139,29 +139,6 @@ function dom(selector, cloneService = {}) {
   });
 }
 
-function processFile(manager) {
-  const { min, round } = Math;
-  let {
-    files: [file],
-  } = manager.context;
-  if (!file.type.match("image.*")) {
-    return manager.error(new Error("Not an image file"));
-  }
-  let reader = new FileReader();
-  manager.onabort = () => reader.abort();
-  reader.onprogress = (event) => {
-    if (!event.lengthComputable) {
-      return;
-    }
-    let { loaded, total } = event;
-    let percent = round(loaded / total) * 100;
-    manager.progress(min(100, percent));
-  };
-  reader.onerror = (event) => manager.error(event.target.error);
-  reader.onload = (event) => manager.done(event.target.result);
-  reader.readAsDataURL(file);
-}
-
 const createMachine = () => {
   return Machine(
     {
@@ -170,6 +147,9 @@ const createMachine = () => {
       initial: "idle",
       context: {
         progress: 0,
+        file: "",
+        files: {},
+        fileData: {},
       },
       states: {
         idle: {
@@ -222,6 +202,44 @@ const createMachine = () => {
   );
 };
 
+function sendRequest(submittedFile) {
+  return new Promise((resolve, reject) => {
+    const req = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append("file", submittedFile, submittedFile.name);
+
+    req.open("POST", "http://127.0.0.1:5000/test-formdata-file-upload");
+    req.send(formData);
+  });
+}
+
+function processFile(manager) {
+  console.log(manager);
+  const { min, round } = Math;
+  let {
+    files: [file],
+  } = manager.context;
+  if (!file.type.match("image.*")) {
+    return manager.error(new Error("Not an image file"));
+  } else {
+    console.log(file.name);
+    let reader = new FileReader();
+    console.log(reader);
+    manager.onabort = () => reader.abort();
+    reader.onprogress = (event) => {
+      if (!event.lengthComputable) {
+        return;
+      }
+      let { loaded, total } = event;
+      let percent = round(loaded / total) * 100;
+      manager.progress(min(100, percent));
+    };
+    reader.onerror = (event) => manager.error(event.target.error);
+    reader.onload = (event) => manager.done(event.target.result);
+    reader.readAsDataURL(file);
+  }
+}
+
 const trackableCancelableService = (serviceFn) => {
   return (context) => (callback) => {
     let manager = {
@@ -260,6 +278,32 @@ let interpreter = interpret(
   })
 );
 
+function transition(type, transFn = (value) => ({ value })) {
+  return (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log(transFn(event));
+    interpreter.send({ type, ...transFn(event) });
+  };
+}
+
+dom("#idle-message").on("click", transition("BROWSE"));
+dom("#completed-message").on("click", transition("BROWSE"));
+dom("#error-message").on("click", transition("BROWSE"));
+dom("#file-picker").on(
+  "change",
+  transition("PICK_FILE", (event) => ({ files: event.target.files }))
+);
+dom(document.body).on("dragover", transition("DRAG_LEAVE"));
+dom("#drop-container").on("dragover", transition("DRAG_OVER"));
+dom("#dropzone-overlay")
+  .on("dragover", transition("DRAG_OVER"))
+  .on("dragleave", transition("DRAG_LEAVE"))
+  .on(
+    "drop",
+    transition("PICK_FILE", (event) => ({ files: event.dataTransfer.files }))
+  );
+
 let renderState = dom([
   dom(document.body).attr("data-state", (state) => state.toStrings().join(" ")),
   dom("#progress-bar").styles((state) => ({
@@ -269,25 +313,6 @@ let renderState = dom([
     .value((state) => state.context.progress)
     .text((state) => `${state.context.progress}%`),
 ]);
-
-function transition(type, transFn = (value) => ({ value })) {
-  return (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    interpreter.send({ type, ...transFn(event) });
-  };
-}
-
-dom("#idle-message").on("click", transition("BROWSE"));
-dom("#completed-message").on("click", transition("BROWSE"));
-dom("#error-message").on("click", transition("BROWSE"));
-dom("#file-picker").on("change", transition("PICK_FILE", (event) => ({ files: event.target.files })));
-dom(document.body).on("dragover", transition("DRAG_LEAVE"));
-dom("#drop-container").on("dragover", transition("DRAG_OVER"));
-dom("#dropzone-overlay")
-  .on("dragover", transition("DRAG_OVER"))
-  .on("dragleave", transition("DRAG_LEAVE"))
-  .on("drop", transition("PICK_FILE", (event) => ({ files: event.dataTransfer.files })));
 
 let ready = (callback) => {
   if (document.readyState != "loading") callback();
