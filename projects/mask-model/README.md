@@ -8,6 +8,11 @@
 
 Image files of faces with and without face mask.
 
+data folder has four sub folders that house the image data we are using to train the model & using to test the model's prdictions.
+
+ - procssed has all the model images in two categories.
+ - external has completely seprate images to test the finished model aganist.
+
 ### 😀 Face Detection Model
 
 OpenCV provides the CascadeClassifier class that can be used to create a cascade classifier for face detection. The constructor can take a filename as an argument that specifies the XML file for a pre-trained model.
