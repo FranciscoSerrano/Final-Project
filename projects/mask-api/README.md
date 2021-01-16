@@ -45,11 +45,6 @@ Its not just Flask but an ecosystem to properly create a RESTful API service:
 
     pip install -r requirements.txt
 
-### Initializing the Database
-
-    # Create DB tables and populate the roles and users tables
-    python manage.py init_db
-
 ### Run Side Running services
 
 ```powershell

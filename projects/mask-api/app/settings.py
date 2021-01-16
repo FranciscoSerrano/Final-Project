@@ -18,7 +18,7 @@ CSRF_ENABLED = True
 # This matches our frontend 'validTypes'
 ALLOWED_IMAGE_EXTENSIONS = {"x-icon", "gif", "png", "jpg", "jpeg"}
 MAX_IMAGE_FILESIZE = 16 * 1024 * 1024
-IMAGE_UPLOADS = f"{basedir}/uploads"
+IMAGE_UPLOADS = f"{basedir}/static/img/captures"
 
 # Celery
 CELERY_BROKER_URL = "mongodb://localhost:27017/masky"
