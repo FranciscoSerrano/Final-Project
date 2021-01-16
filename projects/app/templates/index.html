@@ -166,44 +166,39 @@
         </section>
       </section>
       <div id="chart" class="card long">
-            <div>
-                    
-                    <label class="row half bigsplash">
-                      <div>R0: {% raw %}{{R0}}{% endraw %}</div>
-                      <slider v-model="R0" :min="1" :max="3" :step="0.01"></slider>
-                    </label>
-              
-                    <label class="row half bigsplash">
-                      <div>Mask Effectiveness on Exhale: {% raw %}{{convertToPercent(eout)}}{% endraw %}%</div>
-                      <slider v-model="eout" :min="0" :max="0.99" :step="0.01"></slider>
-                    </label>
-              
-                    <label class="row half bigsplash">
-                      <div>Mask Effectiveness on Inhale: {% raw %}{{convertToPercent(ein)}}{% endraw %}%</div>
-                      <slider v-model="ein" :min="0" :max="0.99" :step="0.01"></slider>
-                    </label>
-              
-                    <graph :traces="graph2Traces" :layout="graph2Layout(
-                      'How Masks Reduce R0',
-                      'Percentage of People Who Wear Masks',
-                      '# People a Contagious Person Infects (R0)',
-                      'Epidemic Under Control',
-                      'Epidemic Out Of Control'
-                    )" :config="config"></graph>       
-                  
-            </div>
-            <div>
-
-                    <graph :traces="graph3Traces(
-                    '% Infected'
-                    )" :layout="graph3Layout(
-                    'How Masks Reduce Infections',
-                    'Percentage of People Who Wear Masks',
-                    'Percentage of People Who Will Be Infected'
-                  )" :config="config"></graph>
-                  
-            </div>
+        <div>
+          <label class="row half bigsplash">
+            <div>R0: {% raw %}{{R0}}{% endraw %}</div>
+            <slider v-model="R0" :min="1" :max="3" :step="0.01"></slider>
+          </label>
+          <label class="row half bigsplash">
+            <div>Mask Effectiveness on Exhale: {% raw %}{{convertToPercent(eout)}}{% endraw %}%</div>
+            <slider v-model="eout" :min="0" :max="0.99" :step="0.01"></slider>
+          </label>
+          <label class="row half bigsplash">
+            <div>Mask Effectiveness on Inhale: {% raw %}{{convertToPercent(ein)}}{% endraw %}%</div>
+            <slider v-model="ein" :min="0" :max="0.99" :step="0.01"></slider>
+          </label>
+          <graph :traces="graph2Traces" :layout="graph2Layout(
+            'How Masks Reduce R0',
+            'Percentage of People Who Wear Masks',
+            '# People a Contagious Person Infects (R0)',
+            'Epidemic Under Control',
+            'Epidemic Out Of Control'
+          )" :config="config">
+          </graph>       
         </div>
+        <div>
+          <graph :traces="graph3Traces(
+          '% Infected'
+          )" :layout="graph3Layout(
+          'How Masks Reduce Infections',
+          'Percentage of People Who Wear Masks',
+          'Percentage of People Who Will Be Infected'
+          )" :config="config">
+          </graph>
+        </div>
+      </div>
       <div class="card long">
         <div id="bubble">
         </div>
@@ -259,14 +254,23 @@
         </div>
       </div>
     </footer>
+
+    <script src="https://unpkg.com/xstate@4/dist/xstate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
     <script src="../static/libraries/plotly-basic.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="../static/js/charts.js"></script>
     <script src="../static/libraries/vue.min.js"></script>
     <script src="../static/libraries/vue-observe-visibility.js"></script>
     <script src="../static/libraries/lambertw.js"></script>
     <script src="../static/js/vue-definitions.js"></script>
+<<<<<<< HEAD
+    <script src="../static/js/uploader.js"></script>
+=======
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="../static/js/charts.js"></script>
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
+>>>>>>> main
   </body>
 </html>

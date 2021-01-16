@@ -6,7 +6,6 @@ Use "python manage.py runserver --help" for additional runserver options.
 """
 
 from os import environ
-from flask_migrate import MigrateCommand
 from flask_script import Manager
 
 get_config_mode = environ.get("MASKY_CONFIG_MODE", "Debug")
@@ -17,7 +16,6 @@ get_config_mode = environ.get("MASKY_CONFIG_MODE", "Debug")
 #     exit('Error: Invalid MASKY_CONFIG_MODE environment variable entry.')
 
 from app import create_app
-from app.commands import InitDbCommand
 
 app = create_app({})  # create_app(config_mode)
 

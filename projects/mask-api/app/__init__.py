@@ -2,13 +2,13 @@
 # a Python package so it can be accessed using the 'import' statement.
 
 from datetime import datetime
-import os
+import json, os, re, base64
 from celery import Celery
 import connexion
 from flask_marshmallow import Marshmallow
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate, MigrateCommand
 from flask_pymongo import PyMongo
+from flask import Flask, render_template, request, jsonify, make_response
+from flask_wtf.csrf import CSRFProtect
 from werkzeug.utils import secure_filename
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -16,9 +16,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Instantiate Flask extensions
 ma = Marshmallow()
-db = SQLAlchemy()
-migrate = Migrate()
 pymongo = PyMongo()
+csrf = CSRFProtect()
 
 
 # https://flask.palletsprojects.com/en/1.1.x/patterns/celery/
@@ -70,16 +69,41 @@ def create_app(extra_config_settings={}):
     # Setup Marshmallow
     ma.init_app(application)
 
-    # Setup Flask-SQLAlchemy
-    db.init_app(application)
-
-    # Setup Flask-Migrate
-    migrate.init_app(application, db)
-
     # Setup PyMongo
     pymongo.init_app(application)
 
+    # Setup CSRF
+    csrf.init_app(application)
+
     # Celery
     celery = make_celery(application)
+
+    @app.route("/")
+    def index():
+        return render_template("index.html")
+
+    @app.route("/about")
+    def about():
+        return render_template("about.html")
+
+    @app.route("/features")
+    def features():
+        return render_template("features.html")
+
+    @app.route("/photo_capture", methods=["POST"])
+    @csrf.exempt
+    def process_capture():
+        req = request.get_json()
+        print(req)
+        header, encoded = req["photo_cap"].split(",", 1)
+        binary_data = base64.b64decode(encoded)
+        image_name = "capture.jpeg"
+
+        with open(os.path.join(application.config["IMAGE_UPLOADS"], image_name), "wb") as f:
+            f.write(binary_data)
+            # facial recognition operations
+            response = {"msg": "success", "size": 20}
+
+        return make_response(jsonify(response=response), 200)
 
     return application
