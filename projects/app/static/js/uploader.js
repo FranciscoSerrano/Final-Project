@@ -202,15 +202,20 @@ const createMachine = () => {
   );
 };
 
-function sendRequest(submittedFile) {
-  return new Promise((resolve, reject) => {
-    const req = new XMLHttpRequest();
-    const formData = new FormData();
-    formData.append("file", submittedFile, submittedFile.name);
-
-    req.open("POST", "http://127.0.0.1:5000/test-formdata-file-upload");
-    req.send(formData);
+async uploadFiles() {
+  this.setState({ uploadProgress: {}, uploading: true });
+  const promises = [];
+  this.state.files.forEach(file => {
+    promises.push(this.sendRequest(file));
   });
+  try {
+    await Promise.all(promises);
+
+    this.setState({ successfullUploaded: true, uploading: false });
+  } catch (e) {
+    // Not Production ready! Do some error handling here instead...
+    this.setState({ successfullUploaded: true, uploading: false });
+  }
 }
 
 function processFile(manager) {

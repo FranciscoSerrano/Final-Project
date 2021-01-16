@@ -82,4 +82,16 @@ def create_app(extra_config_settings={}):
     # Celery
     celery = make_celery(application)
 
+    @app.route('/')
+    def index():
+        return render_template('index.html')
+
+    @app.route('/about')
+    def about():
+        return render_template('about.html')
+
+    @app.route('/features')
+    def features():
+        return render_template('features.html')
+
     return application
