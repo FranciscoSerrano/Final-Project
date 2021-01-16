@@ -16,15 +16,14 @@ function usCharts() {
         
         // Create arrays to hold data of interest for the chart X values
         var date = [];
-        var positive = [];
-        var positiveDelta = [];
-        var negative = [];
-        var negativeDelta = [];
-        var totalResults = [];
         var currHospital = [];
         var currICU = [];
         var currVent = [];
-        var recovered = [];
+
+        // Create arrays to hold the tickValues for x axis
+        var currMonth = "";
+        var tickVals = [];
+        var tickText = [];
   
         // Loop through the data set to fill Covid arrays
         for (let i in data) {
@@ -35,141 +34,195 @@ function usCharts() {
               console.log('Skipped Territory ' + tempName)
           }
           else {  
-              // Create date object array
+              // Create date array as string
               let str = data[i].date.toString();
-              let month = str.slice(4,6);
-              let day = str.slice(6,);
-              let year = str.slice(0,4);
-              let fDate = new Date(year, (month-1), day).toLocaleDateString()
+              var month = str.slice(4,6);
+              var day = str.slice(6,);
+              var year = str.slice(0,4);
+              var fDate = year + "-" + month + "-" +day;
               date.push(fDate);
-  
-              // Create cumulative positive results array
-              let totPos = data[i].positive;
-              positive.push(totPos);
-  
-              // Create positive delta array
-              let pos = data[i].positiveIncrease;
-              positiveDelta.push(pos);
-              
-              // Create cumulatve negative results array
-              let totNeg = data[i].negative;
-              negative.push(totNeg);
-  
-              //Create negative delta array
-              let neg = data[i].negativeIncrease;
-              negativeDelta.push(neg);
-  
-              // Create cumulative  total results array
-              let tot = data[i].totalTestResultsIncrease;
-              totalResults.push(tot);
-  
-              // Create current hospital total
+
+              // Populate tick arrays
+              if (month !== currMonth) {
+                tickText.push((moment().month(month-1).format("MMMM")) + " " + year);
+                tickVals.push(fDate);
+                var currMonth = month
+              };
+
+              // Populate current hospital total
               let curr = data[i].hospitalizedCurrently;
               currHospital.push(curr);
   
-              // Create current ICU total
+              // Populate current ICU total
               let icu = data[i].inIcuCurrently
               currICU.push(icu);
   
-              // Create current ventilator total
+              // Populate current ventilator total
               let vent = data[i].onVentilatorCurrently;
               currVent.push(vent);
-  
-              // Create cumulative recovered total
-              let rec = data[i].recovered;
-              recovered.push(rec);
             }
         };
-        
+
         // Transform arrays into ascending date order
         date.reverse();
-        positive.reverse();
-        positiveDelta.reverse();
-        negative.reverse();
-        negativeDelta.reverse();
-        totalResults.reverse();
         currHospital.reverse();
         currICU.reverse(),
         currVent.reverse();
-        recovered.reverse();
-        
-        // Total Cases vs. Recovered Cases Time Series
-        // Notes to Self: Double check data integrity and change to curr Hosp/icu/ventilator triple line? Or maybe just acknowledge in statement.
-        // Define frames - array of arrays, increasing in length sequentially
-        var n = date.length;
+        tickVals.reverse();
+        tickText.reverse();
+
+        // Ventilator v. ICU v. Hospitalized Animation
+        // Define frames
+        var speedDelta = 2
+        var n = Math.ceil(date.length/speedDelta);
         var frames = [];
   
         for (var i = 0; i < n; i++) {
             frames[i] = {data: [
-                {x: [], y: []}, 
-                {x:[], y: []}
+              {x: [], y: []}, 
+              {x:[], y: []},
+              {x:[], y: []}
             ]};
-            frames[i].data[0].x = date.slice(0, i+1);
-            frames[i].data[0].y = recovered.slice(0, i+1);
-            frames[i].data[1].x = date.slice(0, i+1);
-            frames[i].data[1].y = positive.slice(0, i+1);
-        }
-       
-        // Define "Recovered" Trace
-        var trace1 = {
-            type: 'scatter',
-            mode: 'lines',
-            name: 'Recovered Cases',
-            x: frames[30].data[0].x, 
-            y: frames[30].data[0].y,
-            line: {color: ' lightgrey'}
+
+            var i2 = i * speedDelta;
+            if(i2 >= date.length) {
+              i2 = date.length -1
+            }
+
+            frames[i].data[0].x = date.slice(0, i2+1);
+            frames[i].data[0].y = currVent.slice(0, i2+1);
+            frames[i].data[1].x = date.slice(0, i2+1);
+            frames[i].data[1].y = currICU.slice(0, i2+1);
+            frames[i].data[2].x = date.slice(0, i2+1);
+            frames[i].data[2].y = currHospital.slice(0, i2+1);
         }
         
-        // Define "Total Cases" Trace
+        // Define "Ventilator" Trace
+        var trace0 = {
+          type: 'scatter',
+          mode: 'lines',
+          name: 'Currently Ventilated ',
+          fill: 'tonexty',
+          x: frames[30].data[0].x, 
+          y: frames[30].data[0].y,
+          line: {color: '#a31600'}
+        }
+        
+        // Define "ICU" Trace
+        var trace1 = {
+          type: 'scatter',
+          mode: 'lines',
+          name: 'Currently in the ICU',
+          fill: 'tonexty',
+          x: frames[30].data[1].x, 
+          y: frames[30].data[1].y,
+          line: {color: "#ee762a"}
+        }
+
+        // Define "Hospitalized" Trace
         var trace2 = {
-            type: 'scatter',
-            mode: 'lines',
-            name: 'Total Cases',
-            fill: 'tonexty',
-            x: frames[30].data[1].x, 
-            y: frames[30].data[1].y,
-            line: {color: 'grey'}
+          type: 'scatter',
+          mode: 'lines',
+          name: 'Currently Hospitalized',
+          fill: 'tonexty',
+          x: frames[30].data[2].x, 
+          y: frames[30].data[2].y,
+          line: {color: '#fbd256'}
         }
   
         // Create data object
-        var data = [trace1, trace2];
+        var data = [trace0, trace1, trace2];
   
         // Define Layout
         // Buffer allows for most responsive design as data is updated
-        // n = date.length defined above
-        let buffer = 2000000
-        var xrange = [frames[n-1].data[0].x[0], frames[n-1].data[0].x[n-1]];
-        var yrange = [frames[n-1].data[1].y[0], ((frames[n-1].data[1].y[n-1]) + buffer)];
-  
+        let buffer = 20000
+        var d = date.length;
+        var xrange = [date[0],date[d-1]]
+        var yrange = [0, (currHospital[d-1] + buffer)]
+
         var layout = {
-            title: 'Total Cases vs. Recovered Cases in the US',
-            xaxis: {
-                title: 'Date',
-                range: xrange,
-                //type: 'date',
-                //autorange: true,
-                showgrid: false
+            title: {
+              text:'COVID-19 Hospital Burden in the US',
+              font: {
+                family: 'Open Sans',
+                color: 'white',
+                size: 28 
+              },
+              xref: 'container',
+              yref: 'container',
+              pad: {
+                t:10
+              }
             },
-            yaxis: {  
-                title: 'Number of Cases',
-                range: yrange,
-                rangemode: 'nonnegative',
-                //autorange: true,
-                showgrid: false
+            xaxis: {
+              visible: true,
+              color: 'white',
+              title: {
+                text: 'Date',
+                font: {
+                  family: 'Open Sans',
+                  color: 'white',
+                  size: 16
+                },
+                standoff: 15
+              },
+              automargin: true,
+              range: xrange,
+              type: 'date',
+              showgrid: false,
+              tickVals: tickVals,
+              tickText: tickText
+            },
+            yaxis: {
+              color: 'white',  
+              title: {
+                text: 'Number of Cases',
+                font: {
+                  family: 'Open Sans',
+                  color: 'white',
+                  size: 16
+                },
+                standoff: 25
+              },
+              automargin:true,
+              range: yrange,
+              rangemode: 'nonnegative',
+              type: 'linear',
+              tick0: 0,
+              dtick: 20000,
+              showgrid: false
             },
             legend: {
-                orientation:'h',
-                x: 0.5,
-                y: 1.2,
-                xanchor: 'center'
+              font: {color: 'white'},
+              orientation:'h',
+              x: 0.5,
+              y: 1.2,
+              xanchor: 'center'
+            },
+            paper_bgcolor: '#3e3e3e',
+            plot_bgcolor: '#3e3e3e',
+            margin: {
+              l:50,
+              r:50,
+              t:100,
+              b:10
             },
             updatemenus: [{
                 x: 0.5,
-                y: 0,
+                y: -0.3,
                 yanchor: "top",
                 xanchor: "center",
                 showactive: false,
+                font: {
+                  family: 'Open Sans',
+                  color: 'white'
+                },
+                bordercolor: 'white',
                 direction: "left",
+                pad: {
+                  t:10,
+                  b: 10
+                },
                 type: "buttons",
                 buttons: [{
                   method: "animate",
@@ -203,8 +256,8 @@ function usCharts() {
                 }]
             }]
         };
-        Plotly.newPlot('CHARTDIV2', data, layout).then(function() {
-            Plotly.addFrames('CHARTDIV2', frames);
+        Plotly.newPlot('animation', data, layout).then(function() {
+          Plotly.addFrames('animation', frames);
         });
     });
   };    
