@@ -12,7 +12,7 @@ init();
 
 // Build stateCharts Function
 function stateCharts() {
-  d3.json("../static/js/locations.json").then((locations) => {
+  d3.json("../js/locations.json").then((locations) => {
       // Declare arrays from locations data
       var stateNames = [];
       var stateLat = [];
@@ -39,13 +39,7 @@ function stateCharts() {
       
           // Create arrays to hold data of interest for the chart X values
           var stateDate = [];
-          var statePositive = [];
-          var statePositiveDelta = [];
-          var stateNegative = [];
-          var stateNegativeDelta = [];
-          var stateTotalResults = [];
           var stateCurrHospital = [];
-          var stateCumHospital = [];
 
           // Loop through the data set to fill arrays
           for (let i in data) {
@@ -65,34 +59,10 @@ function stateCharts() {
                   let fDate = new Date(year, (month-1), day).toLocaleDateString()
                   stateDate.push(fDate);
 
-                  // Create cumulative positive results array
-                  let totPos = data[i].positive;
-                  statePositive.push(totPos);
-
-                  // Create positive delta array
-                  let pos = data[i].positiveIncrease;
-                  statePositiveDelta.push(pos);
-                  
-                  // Create cumulatve negative results array
-                  let totNeg = data[i].negativeTestsViral;
-                  stateNegative.push(totNeg);
-
-                  //Create negative delta array
-                  let neg = data[i].negativeIncrease;
-                  stateNegativeDelta.push(neg);
-
-                  // Create cumulative  total results array
-                  let tot = data[i].totalTestResultsIncrease
-                  stateTotalResults.push(tot);
-
                   // Create current hospital total
                   let curr = (data[i].hospitalizedCurrently);
                   stateCurrHospital.push(curr);
-                  
-                  // Create cumulative hospital total
-                  let cum = data[i].hospitalizedCumulative;
-                  stateCumHospital.push(cum);
-                  
+
                   // Calculate curr. hospital rate as percent of state population
                   var hospitalRatio = new Array(stateCurrHospital.length)
                   for(i=0; i<stateCurrHospital.length; i++) {
