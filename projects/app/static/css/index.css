@@ -10,6 +10,7 @@ body {
   height: 100%;
   font-family: "Poppins", sans-serif;
   box-sizing: border-box;
+  scroll-behavior: smooth
 }
 
 /* LAYOUT */
@@ -149,7 +150,7 @@ nav img {
   color: #3e3e3e;
   font-size: 20px;
   padding: 10px;
-  width: 180px;
+  width: 200px;
   text-align: center;
   border-radius: 50px;
   box-shadow: 0px 0px 35px 1px rgba(0, 0, 0, 0.5);
@@ -177,6 +178,12 @@ nav img {
   margin: 0 auto;
   justify-content: center;
   color: #3e3e3e;
+}
+
+.mask {
+ color: whitesmoke;
+ padding: 10px;
+ margin: 10px auto;
 }
 
 .content-middle-body h1 {
